@@ -1,9 +1,10 @@
-import Image from "next/image";
-import Link from 'next/link';
-import initializeApp  from "firebase/app";
+"use client";
+import { getAuth } from 'firebase/auth';
+import '../config/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert} from 'reactstrap';
 
 const auth = getAuth();
 
@@ -25,7 +26,15 @@ export default function Home() {
 
     try {
       await signInWithEmailAndPassword(auth, value.email, value.password);
-    } catch (error) {
+      console.log("Logging in succes")
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        // e is narrowed to Error!
+      setValue({
+        ...value,
+        error: err.message,
+      })
+    }
     }
   }
 
@@ -40,26 +49,51 @@ export default function Home() {
 
     try {
       await createUserWithEmailAndPassword(auth, value.email, value.password);
-    } catch (error) {
-    
+    } catch (err : unknown) {
+      if (err instanceof Error) {
+        // e is narrowed to Error!
+      setValue({
+        ...value,
+        error: err.message,
+      })
+    }
     }
   }
 
   return (
     <main className="justify-center items-center">
-        <h1 className="m-10 flex justify-center items-center">HomePage</h1>
+      <h1 className="m-10 flex justify-center items-center text-2xl">Log In</h1>
+      { value.error && <Alert color="danger">{value.error}</Alert>}
+      <div className='flex m-10 flex-col justify-center items-center'>
+        <Label for="email">E-mail</Label>
+        <Input
+          className='bg-slate-300 border border-black'
+          type="email"
+          name="email"
+          value={value.email}
+          onChange={(event) => setValue({ ...value, email: event.target.value })}
+          id="Email"
+          placeholder="Email" />
 
-        <input
-        placeholder='Email'
-        value={value.email}/>
-        <input
-        placeholder='Password'
-        value={value.password}/>
+        <Label for="password" className='mt-4'>Password</Label>
+        <Input
+          className='bg-slate-300 border border-black '
+          type="password"
+          name="password"
+          value={value.password}
+          onChange={(event) => setValue({ ...value, password: event.target.value })}
+          id="Password"
+          placeholder="Password" />
+      </div>
 
-        <div className="h-screen flex items-center justify-center">
-          <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Login</button>
-          <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">SignUp</button>
-        </div>
+      <div className="flex items-center justify-center">
+        <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={signIn}>
+          Sign in
+        </button>
+        <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={signUp}>
+          Sign Up
+        </button>
+      </div>
     </main>
   );
 }

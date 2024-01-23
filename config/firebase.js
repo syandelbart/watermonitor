@@ -8,13 +8,15 @@ import 'firebase/auth';
 // Your web app's Firebase configuration
 // Import the functions you need from the SDKs you need
 const firebaseConfig = {
-  apiKey: "AIzaSyAAx_knJ_qqxPkJQ_xoIZnxt_c6gb6Wdys",
-  authDomain: "todoapp-eeeb7.firebaseapp.com",
-  projectId: "todoapp-eeeb7",
-  storageBucket: "todoapp-eeeb7.appspot.com",
-  messagingSenderId: "1072574112522",
-  appId: "1:1072574112522:web:65fc4e184aed9894dc90f3"
+  apiKey: "AIzaSyBnYMAk54fetuXZFkw_Kq-NOAkFdOkk-YE",
+  authDomain: "watermonitor-25c13.firebaseapp.com",
+  projectId: "watermonitor-25c13",
+  storageBucket: "watermonitor-25c13.appspot.com",
+  messagingSenderId: "360077311812",
+  appId: "1:360077311812:web:a4abc34ec5b85a3769e111",
+  measurementId: "G-TCMK3T2BXH"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
