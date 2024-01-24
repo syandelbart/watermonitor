@@ -23,5 +23,6 @@ export default function home() {
 return (
   <main className="flex m-10 flex-col"> 
     <Label className="m-3 text-3xl items-start">WaterWatchers</Label>
+    
   </main>);
 }
