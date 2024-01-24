@@ -31,7 +31,7 @@ const Navbar = () => {
             <ul className="hidden md:flex gap-x-6 text-white">
               <li>
                 <Link className={`link ${pathname === '/home' ? 'underline hover:text-green-400' : 'hover:text-green-400'}`} href="/home">
-                  <p>Water Monitors</p>
+                  <p>Home</p>
                 </Link>
               </li>
               <li>
@@ -45,9 +45,9 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            <ul className="hidden md:flex gap-x-6 text-white">
+            <ul className={` ${user === null ? 'hidden' : 'md:flex gap-x-6 text-white'  }`}>
                 <li>
-                    <Label className="m-3">{user?.email}!</Label>
+                    <Label className="flex m-3 text-lg items-center">{user?.email}</Label>
                 </li>
                 <li>
                     <button className="m-3 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border bg-white border-green-800 hover:border-transparent rounded"

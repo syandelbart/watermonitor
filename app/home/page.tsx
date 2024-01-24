@@ -21,11 +21,7 @@ export default function home() {
 }
 
 return (
-  <main className="flex m-10 flex-col justify-center items-center"> 
-    <Label className="m-3 text-3xl">Welcome {user?.email}!</Label>
-    <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-     title="Sign out"  onClick={() => handleLogout()} >
-        Sign Out
-    </button>
+  <main className="flex m-10 flex-col"> 
+    <Label className="m-3 text-3xl items-start">WaterWatchers</Label>
   </main>);
 }
