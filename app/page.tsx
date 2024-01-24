@@ -68,7 +68,7 @@ export default function signIn() {
     <main className="justify-center items-center">
       <h1 className="m-10 flex justify-center items-center text-2xl">Log In</h1>
       <div className="m-10 flex justify-center items-center text-2xl text-red-500">
-        { value.error && <Alert color="danger">{value.error}</Alert>}
+        {value.error && <Alert color="danger" defaultValue={value.error} />}
       </div>
       <div className='flex m-10 flex-col justify-center items-center'>
         <Label for="email">E-mail</Label>
