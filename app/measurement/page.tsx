@@ -4,25 +4,29 @@ import { useState } from 'react';
 
 export default function Page() {
   const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 0.00, latitude: 0.00});
+  const [Alarm, setAlarm] = useState({municipality: '', name: '',  moment: '', result : 0.00, measurment: ''});
   //const { data, loading, error } = useQuery(GET_COURSE, { variables: { id }, skip: id === 0 });
 
   function handleInsert() {
   }
 
   function handleChangeMunicipality(value: any) {
-    setSensor({ ...Sensor, municipality: value });
+    setAlarm({ ...Alarm, municipality: value });
   }
 
   function handleChangeName(value: any) {
-    setSensor({ ...Sensor, name: value });
+    setAlarm({ ...Alarm, name: value });
   }
 
-  function handleChangeLongitude(value: any) {
-    setSensor({ ...Sensor, longitude: value });
+  function handleChangeMoment(value: any) {
+    setAlarm({ ...Alarm, moment: value });
   }
 
-  function handleChangeLatitude(value: any) {
-    setSensor({ ...Sensor, latitude: value });
+  function handleChangeResult(value: any) {
+    setAlarm({ ...Alarm, result: value });
+  }
+  function handleChangeMeasurment(value: any) {
+    setAlarm({ ...Alarm, measurment: value });
   }
 
     return (
@@ -35,7 +39,7 @@ export default function Page() {
         <select
           className='m-3'
           name="Municipality"
-          value={Sensor.municipality}
+          value={Alarm.municipality}
           onChange={handleChangeMunicipality}
         >
           <option value="user">User</option>
@@ -47,8 +51,8 @@ export default function Page() {
         <select
           className='m-3'
           name="Municipality"
-          value={Sensor.municipality}
-          onChange={handleChangeMunicipality}
+          value={Alarm.name}
+          onChange={handleChangeName}
         >
           <option value="user">User</option>
           <option value="admin">Admin</option>
@@ -63,8 +67,9 @@ export default function Page() {
           className='m-3 border border-gray-400 text-gray-800'
           type="number"
           name="Longitude"
+          disabled
           value={Sensor.longitude}
-          onChange={handleChangeLongitude}
+          
         />
         Longitude
         </label>
@@ -74,7 +79,7 @@ export default function Page() {
           type="number"
           name="Latitude"
           value={Sensor.latitude}
-          onChange={handleChangeLatitude}
+          disabled
         />
         Latitude
         </label>
@@ -83,33 +88,33 @@ export default function Page() {
       <input 
           className='m-3 border border-gray-400 text-gray-800'
           type="date"
-          name="Latitude"
+          name="Moment"
           placeholder='Moment'
-          value={Sensor.latitude}
-          onChange={handleChangeLatitude}
+          value={Alarm.moment}
+          onChange={handleChangeMoment}
         />
         <div>
         <label className='m-3'>
         <input 
           className='m-3 border border-gray-400 text-gray-800'
-          type="number"
-          name="Latitude"
-          value={Sensor.latitude}
-          onChange={handleChangeLatitude}
+          type="result"
+          name="result"
+          value={Alarm.result}
+          onChange={handleChangeResult}
         />
-        Latitude
+        result
         </label>
         <label className='m-3'>
         <select
           className='m-3'
-          name="Municipality"
-          value={Sensor.municipality}
-          onChange={handleChangeMunicipality}
+          name="measurment"
+          value={Alarm.measurment}
+          onChange={handleChangeMeasurment}
         >
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
+          <option value="cm">cm</option>
+          <option value="m">m</option>
         </select>
-        Municipality
+        measurment
             </label>
         </div>
       </div>
