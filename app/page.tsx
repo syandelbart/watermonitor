@@ -4,16 +4,19 @@ import '../config/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import {Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert} from 'reactstrap';
+import {Label, Input, Alert} from 'reactstrap';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 
 const auth = getAuth();
 
-export default function Home() {
+export default function signIn() {
   const [value, setValue] = useState({
     email: '',
     password: '',
     error: ''
   })
+  const router = useRouter()
 
   async function signIn() {
     if (value.email === '' || value.password === '') {
@@ -27,6 +30,7 @@ export default function Home() {
     try {
       await signInWithEmailAndPassword(auth, value.email, value.password);
       console.log("Logging in succes")
+      router.push('/home', { scroll: false })
     } catch (err: unknown) {
       if (err instanceof Error) {
         // e is narrowed to Error!
@@ -63,7 +67,9 @@ export default function Home() {
   return (
     <main className="justify-center items-center">
       <h1 className="m-10 flex justify-center items-center text-2xl">Log In</h1>
-      { value.error && <Alert color="danger">{value.error}</Alert>}
+      <div className="m-10 flex justify-center items-center text-2xl text-red-500">
+        { value.error && <Alert color="danger">{value.error}</Alert>}
+      </div>
       <div className='flex m-10 flex-col justify-center items-center'>
         <Label for="email">E-mail</Label>
         <Input
