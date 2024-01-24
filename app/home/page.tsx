@@ -2,7 +2,7 @@
 import { getAuth, signOut } from 'firebase/auth';
 import '../../config/firebase';
 import  useAuthentication  from '../../hooks/use_authentication';
-import {Label, Button} from 'reactstrap';
+import {Label} from 'reactstrap';
 import { useRouter } from 'next/navigation'
 const auth = getAuth();
 

@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 const auth = getAuth();
 
 export default function useAuthentication() {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -20,7 +20,6 @@ export default function useAuthentication() {
         setCurrentUser(null);
       }
     });
-
     // Cleanup the subscription when the component unmounts
     return () => unsubscribe();
   }, []);
