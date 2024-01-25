@@ -24,11 +24,11 @@ const Navbar = () => {
         const { firebaseApp } = module;
         // Perform your client-side operations with firebaseApp
       });
-    } else {
-      // Firebase app is already initialized, use it directly
-      // Perform your client-side operations with firebaseApp
     }
-  }, []);
+    if(user){
+      router.push('/home')
+    }
+  }, [user]);
 
     const handleLogout = () => {               
         signOut(auth).then(() => {
