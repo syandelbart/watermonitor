@@ -7,6 +7,7 @@ import  useAuthentication  from '../../hooks/use_authentication';
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react';
 import { firebaseApp } from '../../config/firebase';
+import { and } from "firebase/firestore";
 
 const auth = getAuth();
 
@@ -25,7 +26,7 @@ const Navbar = () => {
         // Perform your client-side operations with firebaseApp
       });
     }
-    if(user){
+    if(user && pathname == '/'){
       router.push('/home')
     }
   }, [user]);

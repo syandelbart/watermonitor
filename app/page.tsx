@@ -7,6 +7,7 @@ import { useState } from 'react';
 import {Label, Input, Alert} from 'reactstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react';
 
 const auth = getAuth();
 
@@ -17,6 +18,7 @@ export default function signIn() {
     error: ''
   })
   const router = useRouter()
+
 
   async function signIn() {
     if (value.email === '' || value.password === '') {

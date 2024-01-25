@@ -1,12 +1,14 @@
 "use client";
 import {Label} from 'reactstrap';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function Page() {
-  const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 0.00, latitude: 0.00});
+  const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 0.00, latitude: 0.00,  image: null as File | null});
   //const { data, loading, error } = useQuery(GET_COURSE, { variables: { id }, skip: id === 0 });
 
   function handleInsert() {
+    console.log(Sensor);
   }
 
   function handleChangeMunicipality(value: any) {
@@ -25,6 +27,13 @@ export default function Page() {
     setSensor({ ...Sensor, latitude: value });
   }
 
+  function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
+    if (file) {
+      setSensor({ ...Sensor, image: file });
+    }
+  }
+
     return (
     <main className="flex m-10 flex-col"> 
       <Label className="m-3 text-3xl items-start">WaterWatchers</Label>
@@ -35,8 +44,9 @@ export default function Page() {
           className='m-3 p-2 rounded'
           name="Municipality"
           value={Sensor.municipality}
-          onChange={handleChangeMunicipality}
+          onChange={(e) => handleChangeMunicipality(e.target.value)}
         >
+          <option value="">Choose Municipality</option>
           <option value="Vorst">Vorst</option>
         </select>
         Municipality
@@ -47,7 +57,7 @@ export default function Page() {
           type="text"
           name="Name"
           value={Sensor.name}
-          onChange={handleChangeName}
+          onChange={(e) => handleChangeName(e.target.value)}
         />
         Sensor name
       </label>
@@ -58,7 +68,7 @@ export default function Page() {
           type="number"
           name="Longitude"
           value={Sensor.longitude}
-          onChange={handleChangeLongitude}
+          onChange={(e) => handleChangeLongitude(e.target.value)}
         />
         Longitude
       </label>
@@ -68,13 +78,13 @@ export default function Page() {
           type="number"
           name="Latitude"
           value={Sensor.latitude}
-          onChange={handleChangeLatitude}
+          onChange={(e) => handleChangeLatitude(e.target.value)}
         />
         Latitude
       </label>
       <hr className='text-black'/>
       </div>
-      <input type="file" id="img" name="img" accept="image/*" hidden/>
+      <input type="file" id="img" name="img" accept="image/*" hidden  onChange={handleChangeImage}/>
         <label htmlFor="img" className='bg-gray-400 rounded p-3 text-gray-800 text-lg cursor-pointer'>
         Upload Image
         </label>
