@@ -1,8 +1,7 @@
-// useAuthentication.js
+// hooks/useAuthentication.js
 import { useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
-const auth = getAuth();
+import { auth } from '../config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function useAuthentication() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -20,6 +19,7 @@ export default function useAuthentication() {
         setCurrentUser(null);
       }
     });
+
     // Cleanup the subscription when the component unmounts
     return () => unsubscribe();
   }, []);

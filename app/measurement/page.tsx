@@ -37,7 +37,7 @@ export default function Page() {
           <div>
             <label className='m-3'>
         <select
-          className='m-3'
+          className='m-3 rounded p-2'
           name="Municipality"
           value={Alarm.municipality}
           onChange={handleChangeMunicipality}
@@ -48,7 +48,7 @@ export default function Page() {
             </label>
             <label className='m-3'>
         <select
-          className='m-3'
+          className='m-3 rounded p-2'
           name="Municipality"
           value={Alarm.name}
           onChange={handleChangeName}
@@ -62,7 +62,7 @@ export default function Page() {
       <div>
         <label className='m-3'>
         <input
-          className='m-3 border border-gray-400 text-gray-800'
+          className='m-3 p-2 rounded border border-gray-400 text-gray-800'
           type="number"
           name="Longitude"
           disabled
@@ -73,7 +73,7 @@ export default function Page() {
         </label>
         <label className='m-3'>
         <input 
-          className='m-3 border border-gray-400 text-gray-800'
+          className='m-3 p-2 rounded border border-gray-400 text-gray-800'
           type="number"
           name="Latitude"
           value={Sensor.latitude}
@@ -83,18 +83,20 @@ export default function Page() {
         </label>
       </div>
       <hr className='text-black'/>
+      <div className='flex m-3 justify-center items-center'>
       <input 
-          className='m-3 border border-gray-400 text-gray-800'
+          className='m-3 p-2 rounded border border-gray-400 text-gray-800'
           type="date"
           name="Moment"
           placeholder='Moment'
           value={Alarm.moment}
           onChange={handleChangeMoment}
         />
+      </div>
         <div>
         <label className='m-3'>
         <input 
-          className='m-3 border border-gray-400 text-gray-800'
+          className='m-3 p-2 rounded border border-gray-400 text-gray-800'
           type="result"
           name="result"
           value={Alarm.result}
@@ -104,7 +106,7 @@ export default function Page() {
         </label>
         <label className='m-3'>
         <select
-          className='m-3'
+          className='m-3 p-2 rounded'
           name="measurment"
           value={Alarm.measurment}
           onChange={handleChangeMeasurment}

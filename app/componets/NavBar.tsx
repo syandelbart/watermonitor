@@ -5,8 +5,8 @@ import { getAuth, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation'
 import  useAuthentication  from '../../hooks/use_authentication';
 import { usePathname } from 'next/navigation'
-import {Label} from 'reactstrap';
-import { Router } from "next/router";
+import { useEffect } from 'react';
+import { firebaseApp } from '../../config/firebase';
 
 const auth = getAuth();
 
@@ -14,6 +14,21 @@ const Navbar = () => {
   const router = useRouter()
   const pathname = usePathname()
   const { user } = useAuthentication();
+
+  useEffect(() => {
+    // Check if Firebase app is initialized
+    if (!firebaseApp) {
+      // Firebase app is not initialized, handle the initialization
+      import('../../config/firebase').then((module) => {
+        // Now firebaseApp is available for use
+        const { firebaseApp } = module;
+        // Perform your client-side operations with firebaseApp
+      });
+    } else {
+      // Firebase app is already initialized, use it directly
+      // Perform your client-side operations with firebaseApp
+    }
+  }, []);
 
     const handleLogout = () => {               
         signOut(auth).then(() => {
@@ -48,9 +63,6 @@ const Navbar = () => {
               </li>
             </ul>
             <ul className={` ${user === null ? 'hidden' : 'md:flex gap-x-6 text-white'  }`}>
-                <li>
-                    <Label className="flex m-3 text-lg items-center">{user?.email}</Label>
-                </li>
                 <li>
                     <button className="m-3 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border bg-white border-green-800 hover:border-transparent rounded"
                         title="Sign out"  onClick={() => handleLogout()} >

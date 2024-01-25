@@ -32,7 +32,7 @@ export default function Page() {
         <div className='flex m-5 flex-col justify-center items-start'>
       <label className='m-3'>
         <select
-          className='m-3 rounded'
+          className='m-3 p-2 rounded'
           name="Municipality"
           value={Sensor.municipality}
           onChange={handleChangeMunicipality}
@@ -43,7 +43,7 @@ export default function Page() {
       </label>
       <label className='m-3'>
       <input
-          className='m-3 border rounded border-gray-400 text-gray-800'
+          className='m-3 p-2 border rounded border-gray-400 text-gray-800'
           type="text"
           name="Name"
           value={Sensor.name}
@@ -54,7 +54,7 @@ export default function Page() {
       <hr />
       <label className='m-3'>
         <input
-          className='m-3 border rounded border-gray-400 text-gray-800'
+          className='m-3 p-2 border rounded border-gray-400 text-gray-800'
           type="number"
           name="Longitude"
           value={Sensor.longitude}
@@ -64,7 +64,7 @@ export default function Page() {
       </label>
       <label className='m-3'>
         <input 
-          className='m-3 border rounded border-gray-400 text-gray-800'
+          className='m-3 p-2 border rounded border-gray-400 text-gray-800'
           type="number"
           name="Latitude"
           value={Sensor.latitude}
