@@ -29,22 +29,21 @@ export default function Page() {
     <main className="flex m-10 flex-col"> 
       <Label className="m-3 text-3xl items-start">WaterWatchers</Label>
       <div className='flex m-10 flex-col justify-center items-center'>
-        <div className='flex m-10 flex-col justify-center items-start'>
+        <div className='flex m-5 flex-col justify-center items-start'>
       <label className='m-3'>
         <select
-          className='m-3'
+          className='m-3 rounded'
           name="Municipality"
           value={Sensor.municipality}
           onChange={handleChangeMunicipality}
         >
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
+          <option value="Vorst">Vorst</option>
         </select>
         Municipality
       </label>
       <label className='m-3'>
       <input
-          className='m-3 border border-gray-400 text-gray-800'
+          className='m-3 border rounded border-gray-400 text-gray-800'
           type="text"
           name="Name"
           value={Sensor.name}
@@ -55,7 +54,7 @@ export default function Page() {
       <hr />
       <label className='m-3'>
         <input
-          className='m-3 border border-gray-400 text-gray-800'
+          className='m-3 border rounded border-gray-400 text-gray-800'
           type="number"
           name="Longitude"
           value={Sensor.longitude}
@@ -65,7 +64,7 @@ export default function Page() {
       </label>
       <label className='m-3'>
         <input 
-          className='m-3 border border-gray-400 text-gray-800'
+          className='m-3 border rounded border-gray-400 text-gray-800'
           type="number"
           name="Latitude"
           value={Sensor.latitude}
@@ -75,7 +74,11 @@ export default function Page() {
       </label>
       <hr className='text-black'/>
       </div>
-      <button className='m-3' type="submit" onClick={handleInsert}>Submit</button>
+      <input type="file" id="img" name="img" accept="image/*" hidden/>
+        <label htmlFor="img" className='bg-gray-400 rounded p-3 text-gray-800 text-lg cursor-pointer'>
+        Upload Image
+        </label>
+      <button className='m-3 mt-5 bg-black text-white p-2 rounded' type="submit" onClick={handleInsert}>Create sensor for location</button>
       </div>
     </main>);
   }

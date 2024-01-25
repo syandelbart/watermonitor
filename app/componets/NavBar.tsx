@@ -6,12 +6,14 @@ import { useRouter } from 'next/navigation'
 import  useAuthentication  from '../../hooks/use_authentication';
 import { usePathname } from 'next/navigation'
 import {Label} from 'reactstrap';
+import { Router } from "next/router";
+
 const auth = getAuth();
 
 const Navbar = () => {
-    const router = useRouter()
-    const pathname = usePathname()
-    const { user } = useAuthentication();
+  const router = useRouter()
+  const pathname = usePathname()
+  const { user } = useAuthentication();
 
     const handleLogout = () => {               
         signOut(auth).then(() => {

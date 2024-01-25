@@ -42,8 +42,7 @@ export default function Page() {
           value={Alarm.municipality}
           onChange={handleChangeMunicipality}
         >
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
+          <option value="Vorst">Vorst</option>
         </select>
         Municipality
             </label>
@@ -54,10 +53,9 @@ export default function Page() {
           value={Alarm.name}
           onChange={handleChangeName}
         >
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
+          <option value="GrootMeer">Groot Meer</option>
         </select>
-        Municipality
+        sensor
             </label>
       </div>
       <hr />
@@ -102,7 +100,7 @@ export default function Page() {
           value={Alarm.result}
           onChange={handleChangeResult}
         />
-        result
+        Water Heigt
         </label>
         <label className='m-3'>
         <select
@@ -118,7 +116,13 @@ export default function Page() {
             </label>
         </div>
       </div>
-      <button className='m-3' type="submit" onClick={handleInsert}>Submit</button>
+      <div className='flex m-3 flex-col justify-center items-center'>
+      <input type="file" id="img" name="img" accept="image/*" hidden/>
+        <label htmlFor="img" className='bg-gray-400 rounded p-3 text-gray-800 text-lg cursor-pointer'>
+        Upload Image
+        </label>
+      </div>
+      <button className='m-3 bg-black text-white p-2 rounded' type="submit" onClick={handleInsert}>Add water level for location</button>
       </div>
     </main>);
   }
