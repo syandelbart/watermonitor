@@ -3,11 +3,12 @@ import {Label} from 'reactstrap';
 import { useState } from 'react';
 
 export default function Page() {
-  const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 0.00, latitude: 0.00});
-  const [Alarm, setAlarm] = useState({municipality: '', name: '',  moment: '', result : 0.00, measurment: ''});
+  const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 10.00, latitude: 3.00});
+  const [Alarm, setAlarm] = useState({municipality: '', name: '',  moment: '', result : 0.00, measurment: '', image: null as File | null});
   //const { data, loading, error } = useQuery(GET_COURSE, { variables: { id }, skip: id === 0 });
 
   function handleInsert() {
+    console.log(Alarm);
   }
 
   function handleChangeMunicipality(value: any) {
@@ -29,6 +30,12 @@ export default function Page() {
     setAlarm({ ...Alarm, measurment: value });
   }
 
+  function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
+    if (file) {
+      setAlarm({ ...Alarm, image: file });
+    }
+  }
     return (
     <main className="flex m-10 flex-col"> 
       <Label className="m-3 text-3xl items-start">WaterWatchers</Label>
@@ -40,8 +47,9 @@ export default function Page() {
           className='m-3 rounded p-2'
           name="Municipality"
           value={Alarm.municipality}
-          onChange={handleChangeMunicipality}
+          onChange={(e) => handleChangeMunicipality(e.target.value)}
         >
+          <option value="choose">null</option>
           <option value="Vorst">Vorst</option>
         </select>
         Municipality
@@ -51,8 +59,9 @@ export default function Page() {
           className='m-3 rounded p-2'
           name="Municipality"
           value={Alarm.name}
-          onChange={handleChangeName}
+          onChange={(e) => handleChangeName(e.target.value)}
         >
+          <option value="choose">null</option>
           <option value="GrootMeer">Groot Meer</option>
         </select>
         sensor
@@ -90,7 +99,7 @@ export default function Page() {
           name="Moment"
           placeholder='Moment'
           value={Alarm.moment}
-          onChange={handleChangeMoment}
+          onChange={(e) => handleChangeMoment(e.target.value)}
         />
       </div>
         <div>
@@ -100,7 +109,7 @@ export default function Page() {
           type="result"
           name="result"
           value={Alarm.result}
-          onChange={handleChangeResult}
+          onChange={(e) => handleChangeResult(e.target.value)}
         />
         Water Heigt
         </label>
@@ -109,7 +118,7 @@ export default function Page() {
           className='m-3 p-2 rounded'
           name="measurment"
           value={Alarm.measurment}
-          onChange={handleChangeMeasurment}
+          onChange={(e) => handleChangeMeasurment(e.target.value)}
         >
           <option value="cm">cm</option>
           <option value="m">m</option>
@@ -119,7 +128,7 @@ export default function Page() {
         </div>
       </div>
       <div className='flex m-3 flex-col justify-center items-center'>
-      <input type="file" id="img" name="img" accept="image/*" hidden/>
+      <input type="file" id="img" name="img" accept="image/*" hidden  onChange={handleChangeImage}/>
         <label htmlFor="img" className='bg-gray-400 rounded p-3 text-gray-800 text-lg cursor-pointer'>
         Upload Image
         </label>

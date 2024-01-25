@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 export default function Page() {
-  const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 0.00, latitude: 0.00,  image: null as File | null});
+  const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 0.00, latitude: 0.00, image: null as File | null});
   //const { data, loading, error } = useQuery(GET_COURSE, { variables: { id }, skip: id === 0 });
 
   function handleInsert() {
@@ -54,7 +54,7 @@ export default function Page() {
       <label className='m-3'>
       <input
           className='m-3 p-2 border rounded border-gray-400 text-gray-800'
-          type="text"
+          type="text" 
           name="Name"
           value={Sensor.name}
           onChange={(e) => handleChangeName(e.target.value)}
