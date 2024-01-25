@@ -5,7 +5,7 @@ import  useAuthentication  from '../../hooks/use_authentication';
 import {Label} from 'reactstrap';
 import { useRouter } from 'next/navigation'
 
-export default function home() {
+export default function Home() {
   const router = useRouter()
 
 

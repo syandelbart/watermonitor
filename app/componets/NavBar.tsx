@@ -29,7 +29,7 @@ const Navbar = () => {
     if(user && pathname == '/'){
       router.push('/home')
     }
-  }, [user]);
+  }, [user,pathname, router]);
 
     const handleLogout = () => {               
         signOut(auth).then(() => {

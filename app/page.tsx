@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 
 const auth = getAuth();
 
-export default function signIn() {
+export default function SignIn() {
   const [value, setValue] = useState({
     email: '',
     password: '',
@@ -20,7 +20,7 @@ export default function signIn() {
   const router = useRouter()
 
 
-  async function signIn() {
+  async function useSignIn() {
     if (value.email === '' || value.password === '') {
       setValue({
         ...value,
@@ -44,7 +44,7 @@ export default function signIn() {
     }
   }
 
-  async function signUp() {
+  async function useSignUp() {
     if (value.email === '' || value.password === '') {
       setValue({
         ...value,
@@ -95,10 +95,10 @@ export default function signIn() {
       </div>
 
       <div className="flex items-center justify-center">
-        <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={signIn}>
+        <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={useSignIn}>
           Sign in
         </button>
-        <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={signUp}>
+        <button className="m-3 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={useSignUp}>
           Sign Up
         </button>
       </div>
