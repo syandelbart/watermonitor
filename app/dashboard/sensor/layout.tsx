@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Navigation from ".././componets/NavBar";
 import { Inter } from "next/font/google";
-import styles from './styles.module.css';
+
+import Navigation from "../../componets/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,12 +15,10 @@ export default function SensorLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <section>
-        <Navigation />
-        {children}
+      <Navigation />
+      {children}
     </section>
   );
 }
-
