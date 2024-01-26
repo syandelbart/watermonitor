@@ -17,7 +17,6 @@ export default function SensorLayout({
 }>) {
   return (
     <section>
-      <Navigation />
       {children}
     </section>
   );

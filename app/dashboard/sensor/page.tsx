@@ -41,7 +41,7 @@ export default function Page() {
         <div className='flex m-5 flex-col justify-center items-start'>
       <label className='m-3'>
         <select
-          className='m-3 p-2 rounded'
+          className='m-3 p-2 rounded bg-transparent border'
           name="Municipality"
           value={Sensor.municipality}
           onChange={(e) => handleChangeMunicipality(e.target.value)}
@@ -56,6 +56,7 @@ export default function Page() {
           className='m-3 p-2 border rounded border-gray-400 text-gray-800'
           type="text" 
           name="Name"
+          placeholder='Enter the sensor name'
           value={Sensor.name}
           onChange={(e) => handleChangeName(e.target.value)}
         />

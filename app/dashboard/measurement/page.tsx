@@ -44,7 +44,7 @@ export default function Page() {
           <div>
             <label className='m-3'>
         <select
-          className='m-3 rounded p-2'
+          className='m-3 rounded p-2 rounded bg-transparent border'
           name="Municipality"
           value={Alarm.municipality}
           onChange={(e) => handleChangeMunicipality(e.target.value)}
@@ -56,7 +56,7 @@ export default function Page() {
             </label>
             <label className='m-3'>
         <select
-          className='m-3 rounded p-2'
+          className='m-3 rounded p-2 rounded bg-transparent border'
           name="Municipality"
           value={Alarm.name}
           onChange={(e) => handleChangeName(e.target.value)}
@@ -115,7 +115,7 @@ export default function Page() {
         </label>
         <label className='m-3'>
         <select
-          className='m-3 p-2 rounded'
+          className='m-3 p-2 rounded rounded bg-transparent border'
           name="measurment"
           value={Alarm.measurment}
           onChange={(e) => handleChangeMeasurment(e.target.value)}
