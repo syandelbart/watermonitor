@@ -1,7 +1,7 @@
 import { Label } from "reactstrap";
 
 import Protected from "@/app/components/Protected";
-import { Station } from "@/types/general";
+import { NodeRedAuthHeaders, Station } from "@/types/general";
 
 import Dashboard from "./Dashboard";
 
@@ -12,19 +12,12 @@ const Home = async () => {
     const stationsFetched = await fetch(
       `${process.env.NODE_RED_API}/stations`,
       {
-        method: "GET",
-        // API_USERNAME and API_PASSWORD are set in .env.local
-        headers: new Headers({
-          Authorization:
-            "Basic " +
-            Buffer.from(
-              process.env.API_USERNAME + ":" + process.env.API_PASSWORD
-            ).toString("base64"),
-        }),
+        headers: NodeRedAuthHeaders,
       }
     );
 
     stations = await stationsFetched.json();
+    console.log(stations);
   } catch (err: unknown) {
     stations = [];
     console.log(err);
