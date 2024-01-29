@@ -8,7 +8,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   const [sensor, setSensor] = useState({
-    municipality: "",
+    municipality: { value: "", label: "" },
     name: "",
     longitude: 0.0,
     latitude: 0.0,
@@ -16,10 +16,27 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     mac: "",
   });
 
-  //const { data, loading, error } = useQuery(GET_COURSE, { variables: { id }, skip: id === 0 });
-
-  function handleSubmit() {
-    console.log(sensor);
+  async function handleSubmit() {
+    const response = await fetch(`/api/sensor`, {
+      method: "POST",
+      body: JSON.stringify(sensor),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // If response was a success, clear the form
+    if (response.ok) {
+      setSensor({
+        municipality: { value: "", label: "" },
+        name: "",
+        longitude: 0.0,
+        latitude: 0.0,
+        image: null,
+        mac: "",
+      });
+    } else {
+      console.log(response);
+    }
   }
 
   function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
