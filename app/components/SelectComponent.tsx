@@ -21,7 +21,7 @@ const SelectComponent = ({
   onChange?: (event: any) => void;
 }) => {
   return (
-    <div>
+    <div className="max-w-max">
       {label && (
         <label
           className="block text-sm font-medium text-gray-700"
@@ -31,6 +31,7 @@ const SelectComponent = ({
         </label>
       )}
       <Select
+        closeMenuOnSelect={false}
         options={options}
         isMulti
         name={name}
