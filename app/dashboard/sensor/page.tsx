@@ -2,6 +2,7 @@
 import {Label} from 'reactstrap';
 import { useState } from 'react';
 import Image from 'next/image';
+import { Icon } from '@iconify/react';
 
 export default function Page() {
   const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 0.00, latitude: 0.00, image: null as File | null});
@@ -53,7 +54,8 @@ export default function Page() {
         Municipality
       </label>
     </div>
-      <div className='flex flex-col'>
+      <div className='flex flex-col w-full'>
+      <div className='flex flex-row'>
       <input
           className='m-2 p-2 border rounded border-gray-300 text-gray-800 grow mb-1'
           type="text" 
@@ -62,6 +64,13 @@ export default function Page() {
           value={Sensor.name}
           onChange={(e) => handleChangeName(e.target.value)}
         />
+        <div className='flex items-center'>
+          <input type="file" id="img" name="img" accept="image/*" hidden  onChange={handleChangeImage}/>
+          <label htmlFor="img" className='p-1 cursor-pointer justify-center'>
+            <Icon icon="gridicons:add-image" width="30" height="30"/>
+          </label>
+        </div>
+        </div>
       <label className='m-2 mt-0 text-gray-500 text-sm'>
         Sensor name
       </label>
@@ -95,10 +104,6 @@ export default function Page() {
       </div>
       <hr className='text-xl h-2 text-gray-500 m-1'/>
       </div>
-      <input type="file" id="img" name="img" accept="image/*" hidden  onChange={handleChangeImage}/>
-        <label htmlFor="img" className='bg-gray-400 rounded p-3 text-gray-800 text-lg cursor-pointer'>
-        Upload Image
-        </label>
       <button className='m-3 mt-5 bg-black text-white p-2 rounded' type="submit" onClick={handleInsert}>Create sensor for location</button>
       </div>
     </main>);

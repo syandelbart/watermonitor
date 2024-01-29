@@ -1,6 +1,7 @@
 "use client";
 import {Label} from 'reactstrap';
 import { useState } from 'react';
+import { Icon } from '@iconify/react';
 
 export default function Page() {
   const [Sensor, setSensor] = useState({municipality: '', name: '',  longitude: 10.00, latitude: 3.00});
@@ -99,8 +100,9 @@ export default function Page() {
             </div>
           </div>
           <hr className='text-xl h-2 text-gray-500 m-1' />
-          <div className='flex m-3 justify-center items-center'>
-            <div className='flex flex-col w-1/2'>
+          <div className='flex justify-center items-center'>
+            <div className='flex flex-col'>
+            <div className='flex flex-row'>
           <input 
           className='m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800'
           type="Date"
@@ -109,13 +111,21 @@ export default function Page() {
           value={Alarm.moment}
           onChange={(e) => handleChangeMoment(e.target.value)}
           />
+          <div className='flex items-center'>
+            <input type="file" id="img" name="img" accept="image/*" hidden  onChange={handleChangeImage}/>
+            <label htmlFor="img" className='p-1 cursor-pointer justify-center'>
+              <Icon icon="gridicons:add-image" width="30" height="30"/>
+            </label>
+          </div>
+        </div>
+
         <label className='m-2 mt-0 text-gray-500 text-sm'>
         Moment
         </label>
         </div>
           </div> 
-          <div className='flex flex-row'>
-        <div className='flex flex-col w-1/2'>
+        <div className='flex flex-row'>
+          <div className='flex flex-col w-full'>
         <input 
           className='m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800'
           type="result"
@@ -126,10 +136,10 @@ export default function Page() {
         <label className='m-2 mt-0 text-gray-500 text-sm'>
         Water Heigt
         </label>
-        </div>
-        <div className='flex flex-col w-1/2'>
+          </div>
+          <div className='flex flex-col w-full'>
         <select
-          className='m-2 p-2 mb-1 rounded rounded bg-transparent border'
+          className='m-2 p-2 mb-1 rounded bg-transparent border'
           name="measurment"
           value={Alarm.measurment}
           onChange={(e) => handleChangeMeasurment(e.target.value)}
@@ -140,14 +150,10 @@ export default function Page() {
         <label className='m-2 mt-0 text-gray-500 text-sm'>
         measurment
         </label>
-            </div>
           </div>
         </div>
+        </div>
         <div className='flex m-3 flex-col justify-center items-center'>
-      <input type="file" id="img" name="img" accept="image/*" hidden  onChange={handleChangeImage}/>
-        <label htmlFor="img" className='bg-gray-400 rounded p-3 text-gray-800 text-lg cursor-pointer'>
-        Upload Image
-        </label>
       </div>
       <button className='m-3 bg-black text-white p-2 rounded' type="submit" onClick={handleInsert}>Add water level for location</button>
       </div>
