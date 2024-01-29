@@ -102,7 +102,7 @@ export default function Page() {
           <div className='flex m-3 justify-center items-center'>
             <div className='flex flex-col w-1/2'>
           <input 
-          className='m-2 p-2 rounded border border-gray-300 text-gray-800'
+          className='m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800'
           type="Date"
           name="Moment"
           placeholder='Moment'
@@ -117,7 +117,7 @@ export default function Page() {
           <div className='flex flex-row'>
         <div className='flex flex-col w-1/2'>
         <input 
-          className='m-2 p-2 rounded border border-gray-300 text-gray-800'
+          className='m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800'
           type="result"
           name="result"
           value={Alarm.result}
@@ -129,7 +129,7 @@ export default function Page() {
         </div>
         <div className='flex flex-col w-1/2'>
         <select
-          className='m-2 p-2 rounded rounded bg-transparent border'
+          className='m-2 p-2 mb-1 rounded rounded bg-transparent border'
           name="measurment"
           value={Alarm.measurment}
           onChange={(e) => handleChangeMeasurment(e.target.value)}
