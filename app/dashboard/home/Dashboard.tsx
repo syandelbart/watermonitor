@@ -24,7 +24,7 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
   return (
     <div>
       <div className="flex flex-row py-4">
-        <div className="flex grow max-w-full">
+        <div className="flex grow max-w-full relative z-[0]">
           <SelectComponent
             onChange={(event) => setSelectedStations(event)}
             label="Stations"
@@ -44,6 +44,7 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
+        <div className="border-1 rounded overflow-hidden">
         <iframe
           src={`${
             process.env.NEXT_PUBLIC_GRAFANA_URL
@@ -53,20 +54,25 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
           width="100%"
           className="aspect-video"
         ></iframe>
+        </div>
+        <div className="border-1 rounded overflow-hidden">
         <iframe
           src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=1706498094771&to=1706519694771&panelId=22`}
           width="100%"
           className="aspect-video"
         ></iframe>
+        </div>
         <div className="grid grid-cols-4 gap-4 col-span-2">
           {savedStations.map((station) => (
             <div key={`station-height-${station.value}`}>
               <h2>{station.label}</h2>
+              <div className="border-1 rounded overflow-hidden">
               <iframe
                 src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=1706498160237&to=1706519760238&panelId=38&var-station=${station.value}`}
                 width="100%"
                 className="aspect-video"
               ></iframe>
+              </div>
             </div>
           ))}
         </div>
