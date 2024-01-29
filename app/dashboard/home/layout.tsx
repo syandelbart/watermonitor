@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import Navigation from "../../components/NavBar";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,9 +13,5 @@ export default function HomeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <section>
-      {children}
-    </section>
-  );
+  return <section>{children}</section>;
 }
