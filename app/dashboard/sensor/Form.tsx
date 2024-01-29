@@ -7,7 +7,7 @@ import { Municipality } from "@/types/general";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
-  const [Sensor, setSensor] = useState({
+  const [sensor, setSensor] = useState({
     municipality: "",
     name: "",
     longitude: 0.0,
@@ -18,30 +18,14 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
 
   //const { data, loading, error } = useQuery(GET_COURSE, { variables: { id }, skip: id === 0 });
 
-  function handleInsert() {
-    console.log(Sensor);
-  }
-
-  function handleChangeMunicipality(value: any) {
-    setSensor({ ...Sensor, municipality: value });
-  }
-
-  function handleChangeName(value: any) {
-    setSensor({ ...Sensor, name: value });
-  }
-
-  function handleChangeLongitude(value: any) {
-    setSensor({ ...Sensor, longitude: value });
-  }
-
-  function handleChangeLatitude(value: any) {
-    setSensor({ ...Sensor, latitude: value });
+  function handleSubmit() {
+    console.log(sensor);
   }
 
   function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
     if (file) {
-      setSensor({ ...Sensor, image: file });
+      setSensor({ ...sensor, image: file });
     }
   }
 
@@ -56,7 +40,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
                 label: municipality.name,
               })) || []
             }
-            onChange={(event) => handleChangeMunicipality(event)}
+            onChange={(event) => setSensor({ ...sensor, municipality: event })}
             className="w-full"
           />
           <label className="m-2 mt-0 text-gray-500 text-sm">Municipality</label>
@@ -68,8 +52,8 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               type="text"
               name="Name"
               placeholder="Enter the sensor name"
-              value={Sensor.name}
-              onChange={(e) => handleChangeName(e.target.value)}
+              value={sensor.name}
+              onChange={(e) => setSensor({ ...sensor, name: e.target.value })}
             />
             <div className="flex items-center">
               <input
@@ -97,7 +81,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
             className="m-2 p-2 border rounded border-gray-300 text-gray-800 grow mb-1"
             type="text"
             placeholder="00:00:00:00:00:00"
-            onChange={(e) => setSensor({ ...Sensor, mac: e.target.value })}
+            onChange={(e) => setSensor({ ...sensor, mac: e.target.value })}
           />
           <label className="m-2 mt-0 text-gray-500 text-sm">
             Sensor MAC Address (optional)
@@ -110,8 +94,10 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               className="m-2 p-2 mb-1 border rounded border-gray-300 text-gray-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               type="number"
               name="Longitude"
-              value={Sensor.longitude}
-              onChange={(e) => handleChangeLongitude(e.target.value)}
+              value={sensor.longitude}
+              onChange={(e) =>
+                setSensor({ ...sensor, longitude: Number(e.target.value) })
+              }
             />
             <label className="m-2 mt-0 text-gray-500 text-sm">Longitude</label>
           </div>
@@ -120,8 +106,10 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               className="m-2 p-2 mb-1 border rounded border-gray-300 text-gray-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               type="number"
               name="Latitude"
-              value={Sensor.latitude}
-              onChange={(e) => handleChangeLatitude(e.target.value)}
+              value={sensor.latitude}
+              onChange={(e) => {
+                setSensor({ ...sensor, latitude: Number(e.target.value) });
+              }}
             />
             <label className="m-2 mt-0 text-gray-500 text-sm">Latitude</label>
           </div>
@@ -131,7 +119,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
       <button
         className="m-3 mt-5 bg-black text-white p-2 rounded"
         type="submit"
-        onClick={handleInsert}
+        onClick={handleSubmit}
       >
         Create sensor for location
       </button>
