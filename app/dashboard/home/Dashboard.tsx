@@ -23,19 +23,24 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
 
   return (
     <div>
-      <div className="flex py-4">
-        <SelectComponent
-          onChange={(event) => setSelectedStations(event)}
-          label="Stations"
-          isMulti
-          options={stations.map((station) => ({
-            value: station.name,
-            label: station.name,
-          }))}
-        />
-        <button onClick={() => setSavedStations(selectedStations)}>
-          Save selection
-        </button>
+      <div className="flex flex-row py-4">
+        <div className="flex grow max-w-full">
+          <SelectComponent
+            onChange={(event) => setSelectedStations(event)}
+            label="Stations"
+            isMulti
+            options={stations.map((station) => ({
+              value: station.name,
+              label: station.name,
+            }))}
+          />
+        </div>
+        <div className="mt-5 ml-2 flex justify-end">
+          <button className="border-2 border-emerald-800 rounded bg-emerald-800 text-white hover:text-emerald-800 hover:bg-white"
+          onClick={() => setSavedStations(selectedStations)}>
+            Save selection
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
