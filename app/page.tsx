@@ -1,5 +1,5 @@
-import Protected from "./componets/Protected";
-import Navigation from "./componets/NavBar";
+import Protected from "./components/Protected";
+import Navigation from "./components/NavBar";
 
 const Home = () => {
   return (

@@ -35,13 +35,13 @@ export default function Page() {
   }
 
     return (
-    <main className="flex m-10 flex-col"> 
-      <Label className="m-3 text-3xl items-start">WaterWatchers</Label>
-      <div className='flex m-10 flex-col justify-center items-center'>
-        <div className='flex m-5 flex-col justify-center items-start'>
-      <label className='m-3'>
-        <select
-          className='m-3 p-2 rounded bg-transparent border'
+    <main className="flex m-3 flex-col"> 
+      <Label className="m-2 text-3xl items-start">WaterWatchers</Label>
+      <div className='flex m-3 flex-col justify-center items-center'>
+        <div className='flex m-5 flex-col justify-center w-1/2'>
+        <div className='flex flex-col'>
+        <select 
+          className='m-2 p-2 rounded bg-transparent border grow mb-1'
           name="Municipality"
           value={Sensor.municipality}
           onChange={(e) => handleChangeMunicipality(e.target.value)}
@@ -49,41 +49,51 @@ export default function Page() {
           <option value="">Choose Municipality</option>
           <option value="Vorst">Vorst</option>
         </select>
+      <label className='m-2 mt-0 text-gray-500'>
         Municipality
       </label>
-      <label className='m-3'>
+    </div>
+      <div className='flex flex-col'>
       <input
-          className='m-3 p-2 border rounded border-gray-400 text-gray-800'
+          className='m-2 p-2 border rounded border-gray-400 text-gray-800 grow mb-1'
           type="text" 
           name="Name"
           placeholder='Enter the sensor name'
           value={Sensor.name}
           onChange={(e) => handleChangeName(e.target.value)}
         />
+      <label className='m-2 mt-0 text-gray-500'>
         Sensor name
       </label>
-      <hr />
-      <label className='m-3'>
+      </div>
+      <hr className='text-xl h-2 text-gray-500' />
+      <div className='flex flex-row'>
+      <div className='flex flex-col w-1/2'>
         <input
-          className='m-3 p-2 border rounded border-gray-400 text-gray-800'
+          className='m-2 p-2 mb-1 border rounded border-gray-400 text-gray-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
           type="number"
           name="Longitude"
           value={Sensor.longitude}
           onChange={(e) => handleChangeLongitude(e.target.value)}
         />
+      <label className='m-2 mt-0 text-gray-500'>
         Longitude
       </label>
-      <label className='m-3'>
+      </div>
+      <div className='flex flex-col w-1/2'> 
         <input 
-          className='m-3 p-2 border rounded border-gray-400 text-gray-800'
+          className='m-2 p-2 mb-1 border rounded border-gray-400 text-gray-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
           type="number"
           name="Latitude"
           value={Sensor.latitude}
           onChange={(e) => handleChangeLatitude(e.target.value)}
         />
+      <label className='m-2 mt-0 text-gray-500'>
         Latitude
       </label>
-      <hr className='text-black'/>
+      </div>
+      </div>
+      <hr className='text-xl h-2 text-gray-500' />
       </div>
       <input type="file" id="img" name="img" accept="image/*" hidden  onChange={handleChangeImage}/>
         <label htmlFor="img" className='bg-gray-400 rounded p-3 text-gray-800 text-lg cursor-pointer'>
