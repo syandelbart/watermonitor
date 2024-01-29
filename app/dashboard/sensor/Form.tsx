@@ -13,6 +13,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     longitude: 0.0,
     latitude: 0.0,
     image: null as File | null,
+    mac: "",
   });
 
   //const { data, loading, error } = useQuery(GET_COURSE, { variables: { id }, skip: id === 0 });
@@ -88,6 +89,19 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
             </div>
           </div>
           <label className="m-2 mt-0 text-gray-500 text-sm">Sensor name</label>
+        </div>
+        <div className="flex flex-col">
+          <input
+            name="mac"
+            id="mac"
+            className="m-2 p-2 border rounded border-gray-300 text-gray-800 grow mb-1"
+            type="text"
+            placeholder="00:00:00:00:00:00"
+            onChange={(e) => setSensor({ ...Sensor, mac: e.target.value })}
+          />
+          <label className="m-2 mt-0 text-gray-500 text-sm">
+            Sensor MAC Address (optional)
+          </label>
         </div>
         <hr className="text-xl h-2 text-gray-500 m-1" />
         <div className="flex flex-row">
