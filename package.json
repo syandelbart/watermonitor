@@ -9,14 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "fade": "^0.2.0",
     "firebase": "^10.7.2",
+    "lucide-react": "^0.318.0",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-select": "^5.8.0",
     "reactstrap": "^9.2.2",
-    "tailwind": "^4.0.0"
+    "tailwind": "^4.0.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",
