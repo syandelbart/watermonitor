@@ -15,7 +15,9 @@ const SelectComponent = ({
   onChange,
   closeMenuOnSelect = true,
   className,
+  value,
 }: {
+  value?: { value: string; label: string };
   options: { value: string; label: string }[];
   name?: string;
   label?: string;
@@ -35,6 +37,7 @@ const SelectComponent = ({
         </label>
       )}
       <Select
+        value={value}
         closeMenuOnSelect={closeMenuOnSelect}
         options={options}
         isMulti={isMulti}
