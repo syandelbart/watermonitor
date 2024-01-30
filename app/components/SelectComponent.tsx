@@ -13,15 +13,19 @@ const SelectComponent = ({
   label,
   name,
   onChange,
+  closeMenuOnSelect = true,
+  className,
 }: {
   options: { value: string; label: string }[];
   name?: string;
   label?: string;
   isMulti?: boolean;
   onChange?: (event: any) => void;
+  closeMenuOnSelect?: boolean;
+  className?: string;
 }) => {
   return (
-    <div className="max-w-max">
+    <div className={className}>
       {label && (
         <label
           className="block text-sm font-medium text-gray-700"
@@ -31,9 +35,9 @@ const SelectComponent = ({
         </label>
       )}
       <Select
-        closeMenuOnSelect={false}
+        closeMenuOnSelect={closeMenuOnSelect}
         options={options}
-        isMulti
+        isMulti={isMulti}
         name={name}
         aria-label={name}
         onChange={onChange}
