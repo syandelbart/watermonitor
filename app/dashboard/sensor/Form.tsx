@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -15,6 +16,8 @@ type Methods = {
 
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   const urlSearchParams = useSearchParams();
+
+  const [image, setImage] = useState<File>();
 
   const action = urlSearchParams.get("action");
 
@@ -33,6 +36,12 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         .then((response) => response.json())
         .then((data: Sensor) => {
           setSensor(data);
+          console.log(data.image);
+          // Buffer to image file
+          if (image) {
+            const file = new File([image], "image.png", { type: "image/png" });
+            setImage(file);
+          }
         });
     }
   }, [urlSearchParams]);
@@ -56,8 +65,29 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         "Content-Type": "application/json",
       },
     });
+
+    if (!response.ok) return console.log(response);
+
+    const createdSensor: Sensor = await response.json();
+
+    // Upload image
+    if (createdSensor?.id && image) {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("id", createdSensor.id);
+      const response = await fetch(`/api/sensor/image`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log("Image uploaded");
+        setImage(undefined);
+      }
+    }
+
     // If response was a success, clear the form
-    if (response.ok && action !== "edit") {
+    if (action !== "edit") {
       setSensor({
         municipality: "",
         station_name: "",
@@ -67,15 +97,13 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         mac_address: "",
         id: "",
       });
-    } else {
-      console.log(response);
     }
   }
 
   async function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
     if (file) {
-      setSensor({ ...sensor, image: await file.text() });
+      setImage(file);
     }
   }
 
@@ -180,6 +208,20 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
           </div>
         </div>
         <hr className="text-xl h-2 text-gray-500 m-1" />
+        {/* image of setup with react use state and preview */}
+        <div className="flex flex-col">
+          {image && (
+            <Image
+              src={URL.createObjectURL(image)}
+              alt="Image of the sensor setup (preview)"
+              width={200}
+              height={200}
+            />
+          )}
+          <label className="m-2 mt-0 text-gray-500 text-sm">Image</label>
+
+          <input type="file" onChange={handleChangeImage} />
+        </div>
       </div>
       <button
         className="m-3 mt-5 bg-black text-white p-2 rounded"
