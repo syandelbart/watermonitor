@@ -3,7 +3,7 @@ import { NodeRedAuthHeaders, Sensor } from "@/types/general";
 // TODO: Add authentication, right now anyone can add a sensor to the database
 // NON-SECURE ENDPOINT
 const POST = async (request: Request) => {
-  const sensor = await request.json();
+  const sensor = (await request.json()) as Sensor;
 
   // TODO: Add field validation
 
@@ -14,9 +14,9 @@ const POST = async (request: Request) => {
     method: "POST",
     headers: headers,
     body: JSON.stringify({
-      municipality: sensor.municipality.value,
-      station_name: sensor.name,
-      mac_address: sensor.mac,
+      municipality: sensor.municipality,
+      station_name: sensor.station_name,
+      mac_address: sensor.mac_address,
       longitude: sensor.longitude,
       latitude: sensor.latitude,
     }),
