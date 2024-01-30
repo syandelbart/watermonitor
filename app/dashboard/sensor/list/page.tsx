@@ -19,14 +19,14 @@ const List = async () => {
       <h1>Sensor List</h1>
       <div>
         <Table>
-          <TableCaption>A list of your recent invoices.</TableCaption>
+          <TableCaption>A table of all the sensors in the system.</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
               <TableHead>Municipality</TableHead>
               <TableHead>MAC Address</TableHead>
               <TableHead>Station Name</TableHead>
-              <TableHead>(Longitude,Latitude)</TableHead>
+              <TableHead>(Longitude | Latitude)</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -38,7 +38,9 @@ const List = async () => {
                 <TableCell>{sensor.mac_address}</TableCell>
                 <TableCell>{sensor.station_name}</TableCell>
                 <TableCell>
-                  ({sensor.longitude},{sensor.latitude})
+                  {sensor.longitude &&
+                    sensor.latitude &&
+                    `(${sensor.longitude},${sensor.latitude})`}
                 </TableCell>
                 <TableCell>{/* Actions */}</TableCell>
               </TableRow>
