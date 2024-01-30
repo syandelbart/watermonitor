@@ -11,6 +11,16 @@ export type Municipality = {
   name: string;
 };
 
+export type Sensor = {
+  id: string;
+  municipality: string;
+  station_name: string;
+  mac_address: string;
+  image: string;
+  longitude: number;
+  latitude: number;
+};
+
 export const NodeRedAuthHeaders = new Headers({
   Authorization:
     "Basic " +
