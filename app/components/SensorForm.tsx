@@ -1,48 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import SelectComponent from "@/app/components/SelectComponent";
-import { Municipality } from "@/types/general";
+import { Municipality, Sensor } from "@/types/general";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
+type Methods = {
+  GET: "GET";
+  POST: "POST";
+  PUT: "PUT";
+};
+
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
-  const [sensor, setSensor] = useState({
-    municipality: { value: "", label: "" },
-    name: "",
+  const urlSearchParams = useSearchParams();
+
+  const action = urlSearchParams.get("action");
+
+  useEffect(() => {
+    const id = urlSearchParams.get("id");
+    const action = urlSearchParams.get("action");
+
+    if (id && action == "edit") {
+      fetch(`/api/sensor/${id}`, {
+        method: "GET",
+        // Stop cache
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      })
+        .then((response) => response.json())
+        .then((data: Sensor) => {
+          setSensor(data);
+        });
+    }
+  }, [urlSearchParams]);
+
+  const [sensor, setSensor] = useState<Sensor>({
+    municipality: "",
+    station_name: "",
     longitude: 0.0,
     latitude: 0.0,
-    image: null as File | null,
-    mac: "",
+    image: undefined,
+    mac_address: "",
+    id: "",
   });
 
   async function handleSubmit() {
     const response = await fetch(`/api/sensor`, {
-      method: "POST",
+      method: action === "edit" ? "PUT" : "POST",
       body: JSON.stringify(sensor),
+
       headers: {
         "Content-Type": "application/json",
       },
     });
     // If response was a success, clear the form
-    if (response.ok) {
+    if (response.ok && action !== "edit") {
       setSensor({
-        municipality: { value: "", label: "" },
-        name: "",
+        municipality: "",
+        station_name: "",
         longitude: 0.0,
         latitude: 0.0,
-        image: null,
-        mac: "",
+        image: undefined,
+        mac_address: "",
+        id: "",
       });
     } else {
       console.log(response);
     }
   }
 
-  function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
     if (file) {
-      setSensor({ ...sensor, image: file });
+      setSensor({ ...sensor, image: await file.text() });
     }
   }
 
@@ -51,13 +84,23 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
       <div className="flex m-5 flex-col justify-center w-1/2">
         <div className="flex flex-col">
           <SelectComponent
+            value={
+              sensor.municipality
+                ? {
+                    value: sensor.municipality,
+                    label: sensor.municipality,
+                  }
+                : undefined
+            }
             options={
               municipalities.map((municipality) => ({
                 value: municipality.name,
                 label: municipality.name,
               })) || []
             }
-            onChange={(event) => setSensor({ ...sensor, municipality: event })}
+            onChange={(event) =>
+              setSensor({ ...sensor, municipality: event.value })
+            }
             className="w-full"
           />
           <label className="m-2 mt-0 text-gray-500 text-sm">Municipality</label>
@@ -69,8 +112,10 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               type="text"
               name="Name"
               placeholder="Enter the sensor name"
-              value={sensor.name}
-              onChange={(e) => setSensor({ ...sensor, name: e.target.value })}
+              value={sensor.station_name}
+              onChange={(e) =>
+                setSensor({ ...sensor, station_name: e.target.value })
+              }
             />
             <div className="flex items-center">
               <input
@@ -98,7 +143,10 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
             className="m-2 p-2 border rounded border-gray-300 text-gray-800 grow mb-1"
             type="text"
             placeholder="00:00:00:00:00:00"
-            onChange={(e) => setSensor({ ...sensor, mac: e.target.value })}
+            value={sensor.mac_address}
+            onChange={(e) =>
+              setSensor({ ...sensor, mac_address: e.target.value })
+            }
           />
           <label className="m-2 mt-0 text-gray-500 text-sm">
             Sensor MAC Address (optional)
@@ -138,7 +186,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         type="submit"
         onClick={handleSubmit}
       >
-        Create sensor for location
+        {action === "edit" ? "Edit sensor" : "Create sensor for location"}
       </button>
     </div>
   );
