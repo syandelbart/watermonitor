@@ -8,7 +8,7 @@ const Page = async () => {
   let municipalities: Municipality[];
 
   try {
-    municipalities = await fetch(`${process.env.NODE_RED_API}/municipalities`, {
+    municipalities = await fetch(`${process.env.NODE_RED_APlI}/municipalities`, {
       headers: NodeRedAuthHeaders,
     }).then((res) => res.json());
   } catch (err: unknown) {
