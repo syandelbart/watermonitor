@@ -3,7 +3,7 @@ import { Label } from "reactstrap";
 import Protected from "@/app/components/Protected";
 import { NodeRedAuthHeaders, Station } from "@/types/general";
 
-import Dashboard from "./Dashboard";
+import Dashboard from "../../components/Dashboard/home/Dashboard";
 
 const Home = async () => {
   let stations: Station[];
