@@ -7,15 +7,7 @@ import { Measurement, MeasurementTypes, Sensor } from "@/types/general";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Form = ({ sensors }: { sensors: Sensor[] }) => {
-  const [sensor, setSensor] = useState<Sensor>({
-    municipality: "",
-    station_name: "",
-    longitude: 0.0,
-    latitude: 0.0,
-    image: undefined,
-    mac_address: "",
-    id: "",
-  });
+  const [sensor, setSensor] = useState<Sensor>();
 
   const [measurement, setMeasurement] = useState<Measurement>({
     id: "",
@@ -57,16 +49,21 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
           <div className="flex flex-col w-full">
             <SelectComponent
               value={
-                sensor?.municipality
+                // map sensor find to value and label
+                sensor
                   ? {
-                      value: sensor?.municipality,
-                      label: sensor?.municipality,
+                      value: sensor.id,
+                      label: `${sensor.municipality}/${sensor.station_name}`,
                     }
-                  : undefined
+                  : {
+                      value: "",
+                      label: "Select sensor",
+                    }
               }
-              onChange={(e: { value: string; label: string }) =>
-                setMeasurement({ ...measurement, sensor_id: e.value })
-              }
+              onChange={(e: { value: string; label: string }) => {
+                setSensor(sensors.find((sensor) => sensor.id === e.value));
+                setMeasurement({ ...measurement, sensor_id: e.value });
+              }}
               options={sensors.map((sensor) => ({
                 value: sensor.id,
                 label: `${sensor.municipality}/${sensor.station_name}`,

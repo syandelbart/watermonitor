@@ -2,7 +2,7 @@ import { Label } from "reactstrap";
 
 import { Municipality, NodeRedAuthHeaders } from "@/types/general";
 
-import Form from "./Form";
+import Form from "../../components/Sensor/Form";
 
 const Page = async () => {
   let municipalities: Municipality[];
