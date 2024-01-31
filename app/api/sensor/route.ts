@@ -71,6 +71,8 @@ const PUT = async (request: Request) => {
   const headers = new Headers(NodeRedAuthHeaders);
   headers.set("Content-Type", "application/json");
 
+  console.log(sensor);
+
   const response = await fetch(`${process.env.NODE_RED_API}/sensor`, {
     method: "PUT",
     headers: headers,
@@ -79,8 +81,8 @@ const PUT = async (request: Request) => {
       municipality: sensor.municipality,
       station_name: sensor.station_name,
       mac_address: sensor.mac_address,
-      longitude: sensor.longitude,
-      latitude: sensor.latitude,
+      longitude: sensor.longitude ?? 0,
+      latitude: sensor.latitude ?? 0,
     }),
   });
 
@@ -99,4 +101,29 @@ const PUT = async (request: Request) => {
   });
 };
 
-export { GET, POST, PUT };
+const DELETE = async (request: Request) => {
+  const sensor: Sensor = await request.json();
+
+  // TODO : Add field validation
+
+  const headers = new Headers(NodeRedAuthHeaders);
+  headers.set("Content-Type", "application/json");
+  const response = await fetch(`${process.env.NODE_RED_API}/sensor`, {
+    method: "DELETE",
+    headers: headers,
+    body: JSON.stringify({
+      id: sensor.id,
+    }),
+  });
+
+  try {
+    const data = await response.json();
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { GET, POST, PUT, DELETE };

@@ -8,6 +8,9 @@ const Measurement = async () => {
   const sensors: Sensor[] = await fetch(`${process.env.NODE_RED_API}/sensors`, {
     method: "GET",
     headers: NodeRedAuthHeaders,
+    next: {
+      revalidate: 0,
+    },
   }).then((res) => res.json());
 
   return (

@@ -1,9 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
-
-
 
 const routes = [
   {
@@ -15,11 +12,18 @@ const routes = [
     name: "Measurement",
   },
   {
+    path: "/dashboard/measurement/list",
+    name: "Measurement List",
+  },
+  {
     path: "/dashboard/sensor",
     name: "Sensor",
   },
+  {
+    path: "/dashboard/sensor/list",
+    name: "Sensor List",
+  },
 ];
-
 
 const Navbar = () => {
   const router = useRouter();

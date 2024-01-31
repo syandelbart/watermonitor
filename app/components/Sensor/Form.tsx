@@ -1,50 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import SelectComponent from "@/app/components/SelectComponent";
 import { Municipality, Sensor } from "@/types/general";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
+type Methods = {
+  GET: "GET";
+  POST: "POST";
+  PUT: "PUT";
+};
+
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
+  const urlSearchParams = useSearchParams();
+
+  const action = urlSearchParams.get("action");
+
+  useEffect(() => {
+    const id = urlSearchParams.get("id");
+    const action = urlSearchParams.get("action");
+
+    if (id && action == "edit") {
+      fetch(`/api/sensor/${id}`, {
+        method: "GET",
+        // Stop cache
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      })
+        .then((response) => response.json())
+        .then((data: Sensor) => {
+          setSensor(data);
+        });
+    }
+  }, [urlSearchParams]);
+
   const [sensor, setSensor] = useState<Sensor>({
-    id: "",
     municipality: "",
     station_name: "",
     longitude: 0.0,
     latitude: 0.0,
-    mac_address: "",
     image: "",
+    mac_address: "",
+    id: "",
   });
 
   async function handleSubmit() {
     const response = await fetch(`/api/sensor`, {
-      method: "POST",
+      method: action === "edit" ? "PUT" : "POST",
       body: JSON.stringify(sensor),
+
       headers: {
         "Content-Type": "application/json",
       },
     });
     // If response was a success, clear the form
-    if (response.ok) {
+    if (response.ok && action !== "edit") {
       setSensor({
         municipality: "",
         station_name: "",
         longitude: 0.0,
         latitude: 0.0,
-        id: "",
         image: "",
         mac_address: "",
+        id: "",
       });
     } else {
       console.log(response);
     }
   }
 
-  function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
-    // TODO: Fix image upload
     if (file) {
+      setSensor({ ...sensor, image: await file.text() });
     }
   }
 
@@ -53,22 +84,19 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
       <div className="flex m-5 flex-col justify-center w-1/2">
         <div className="flex flex-col">
           <SelectComponent
-            options={
-              municipalities.map((municipality) => ({
-                value: municipality.name,
-                label: municipality.name,
-              })) || []
-            }
             value={
               sensor.municipality
                 ? {
                     value: sensor.municipality,
                     label: sensor.municipality,
                   }
-                : {
-                    value: "",
-                    label: "Select municipality",
-                  }
+                : undefined
+            }
+            options={
+              municipalities.map((municipality) => ({
+                value: municipality.name,
+                label: municipality.name,
+              })) || []
             }
             onChange={(event) =>
               setSensor({ ...sensor, municipality: event.value })
@@ -158,7 +186,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         type="submit"
         onClick={handleSubmit}
       >
-        Create sensor for location
+        {action === "edit" ? "Edit sensor" : "Create sensor for location"}
       </button>
     </div>
   );
