@@ -1,5 +1,31 @@
 import { NodeRedAuthHeaders, Sensor } from "@/types/general";
 
+const GET = async (request: Request) => {
+  const headers = new Headers(NodeRedAuthHeaders);
+  headers.set("Content-Type", "application/json");
+
+  const response = await fetch(`${process.env.NODE_RED_API}/sensors`, {
+    method: "GET",
+    headers: headers,
+  });
+
+  console.log(response);
+
+  try {
+    const data = await response.json();
+    console.log(data);
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return new Response("Error", {
+    headers: { "Content-Type": "application/json" },
+    status: 500,
+  });
+};
+
 // TODO: Add authentication, right now anyone can add a sensor to the database
 // NON-SECURE ENDPOINT
 const POST = async (request: Request) => {
@@ -73,4 +99,4 @@ const PUT = async (request: Request) => {
   });
 };
 
-export { POST, PUT };
+export { GET, POST, PUT };

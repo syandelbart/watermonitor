@@ -11,6 +11,19 @@ export type Municipality = {
   name: string;
 };
 
+export type Measurement = {
+  id: string;
+  sensor_id: string;
+  moment: string;
+  measurement: string;
+  result: number;
+};
+
+export enum MeasurementTypes {
+  cm = "cm",
+  m = "m",
+}
+
 export type Sensor = {
   id: string;
   municipality: string;
