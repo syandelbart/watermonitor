@@ -2,7 +2,7 @@ import { Label } from "reactstrap";
 
 import { NodeRedAuthHeaders, Sensor } from "@/types/general";
 
-import Form from "./Form";
+import Form from "../../components/Measurement/Form";
 
 const Measurement = async () => {
   const sensors: Sensor[] = await fetch(`${process.env.NODE_RED_API}/sensors`, {
