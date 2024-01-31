@@ -16,6 +16,7 @@
     "react-dom": "^18",
     "react-select": "^5.8.0",
     "reactstrap": "^9.2.2",
+    "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
