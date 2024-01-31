@@ -3,17 +3,18 @@
 import { useState } from "react";
 
 import SelectComponent from "@/app/components/SelectComponent";
-import { Municipality } from "@/types/general";
+import { Municipality, Sensor } from "@/types/general";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
-  const [sensor, setSensor] = useState({
+  const [sensor, setSensor] = useState<Sensor>({
+    id: "",
     municipality: "",
     station_name: "",
     longitude: 0.0,
     latitude: 0.0,
-    image: null as File | null,
-    mac: "",
+    mac_address: "",
+    image: "",
   });
 
   async function handleSubmit() {
@@ -31,8 +32,9 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         station_name: "",
         longitude: 0.0,
         latitude: 0.0,
-        image: null,
-        mac: "",
+        id: "",
+        image: "",
+        mac_address: "",
       });
     } else {
       console.log(response);
@@ -41,8 +43,8 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
 
   function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
+    // TODO: Fix image upload
     if (file) {
-      setSensor({ ...sensor, image: file });
     }
   }
 
@@ -113,7 +115,10 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
             className="m-2 p-2 border rounded border-gray-300 text-gray-800 grow mb-1"
             type="text"
             placeholder="00:00:00:00:00:00"
-            onChange={(e) => setSensor({ ...sensor, mac: e.target.value })}
+            value={sensor.mac_address}
+            onChange={(e) =>
+              setSensor({ ...sensor, mac_address: e.target.value })
+            }
           />
           <label className="m-2 mt-0 text-gray-500 text-sm">
             Sensor MAC Address (optional)
