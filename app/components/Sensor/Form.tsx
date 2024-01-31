@@ -8,8 +8,8 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   const [sensor, setSensor] = useState({
-    municipality: { value: "", label: "" },
-    name: "",
+    municipality: "",
+    station_name: "",
     longitude: 0.0,
     latitude: 0.0,
     image: null as File | null,
@@ -27,8 +27,8 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     // If response was a success, clear the form
     if (response.ok) {
       setSensor({
-        municipality: { value: "", label: "" },
-        name: "",
+        municipality: "",
+        station_name: "",
         longitude: 0.0,
         latitude: 0.0,
         image: null,
@@ -57,7 +57,20 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
                 label: municipality.name,
               })) || []
             }
-            onChange={(event) => setSensor({ ...sensor, municipality: event })}
+            value={
+              sensor.municipality
+                ? {
+                    value: sensor.municipality,
+                    label: sensor.municipality,
+                  }
+                : {
+                    value: "",
+                    label: "Select municipality",
+                  }
+            }
+            onChange={(event) =>
+              setSensor({ ...sensor, municipality: event.value })
+            }
             className="w-full"
           />
           <label className="m-2 mt-0 text-gray-500 text-sm">Municipality</label>
@@ -69,8 +82,10 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               type="text"
               name="Name"
               placeholder="Enter the sensor name"
-              value={sensor.name}
-              onChange={(e) => setSensor({ ...sensor, name: e.target.value })}
+              value={sensor.station_name}
+              onChange={(e) =>
+                setSensor({ ...sensor, station_name: e.target.value })
+              }
             />
             <div className="flex items-center">
               <input
