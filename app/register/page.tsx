@@ -5,8 +5,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Input, Label } from "reactstrap";
 
-import { auth } from "@/config/firebase";
-
 export default function SignIn() {
   const [value, setValue] = useState({
     email: "",
