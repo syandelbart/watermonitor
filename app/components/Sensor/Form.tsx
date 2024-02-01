@@ -7,6 +7,7 @@ import SelectComponent from "@/app/components/SelectComponent";
 import { Municipality, Sensor } from "@/types/general";
 import { useSensorStore } from "@/zustand";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { LoadScript } from "@react-google-maps/api";
 
 import MyMap from "../Map";
 
@@ -173,16 +174,29 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
           <label>Sensor MAC Address (optional)</label>
         </div>
         <hr className="text-xl h-2 text-gray-500" />
-        {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
-          <div className="w-full">
-            <h1>Select a Location</h1>
-            <MyMap
-              onLocationSelect={handleLocationSelect}
-              searchLocationPosition={selectedLocation}
-              setSearchLocationPosition={setSelectedLocation}
-            />
-          </div>
-        ) : null}
+        <div className="w-full">
+          {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+            window.google === undefined ? (
+              <LoadScript
+                id="script-loader"
+                libraries={["places"]}
+                googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+              >
+                <MyMap
+                  onLocationSelect={handleLocationSelect}
+                  searchLocationPosition={selectedLocation}
+                  setSearchLocationPosition={setSelectedLocation}
+                />
+              </LoadScript>
+            ) : (
+              <MyMap
+                onLocationSelect={handleLocationSelect}
+                searchLocationPosition={selectedLocation}
+                setSearchLocationPosition={setSelectedLocation}
+              />
+            )
+          ) : null}
+        </div>
 
         <div className="flex flex-row">
           <div className="flex flex-col w-1/2">

@@ -5,7 +5,6 @@ import { Table } from "reactstrap";
 
 import {
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -18,8 +17,7 @@ const SensorTable = () => {
   const { sensors, add, remove } = useSensorStore();
 
   return (
-    <Table>
-      <TableCaption>A table of all the sensors in the system.</TableCaption>
+    <Table className="w-full">
       <TableHeader>
         <TableRow>
           <TableHead>ID</TableHead>

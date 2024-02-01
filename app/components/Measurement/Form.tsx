@@ -53,6 +53,7 @@ const Form = () => {
         <div className="flex flex-row">
           <div className="flex flex-col w-full">
             <SelectComponent
+              name="sensorname"
               value={
                 // map sensor find to value and label
                 sensor
@@ -81,12 +82,10 @@ const Form = () => {
               ]}
             />
 
-            <label>Sensor</label>
+            <label htmlFor="sensorname">Sensor</label>
           </div>
         </div>
-        <hr className="text-xl h-2 text-gray-500" />
-        <div className="flex flex-row"></div>
-        <hr className="text-xl h-2 text-gray-500" />
+
         <div className="flex justify-center items-center">
           <div className="flex flex-col">
             <div className="flex flex-row">

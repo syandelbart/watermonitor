@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
 import PlacesAutocompleteComponent from "./PlacesAutoComplete";
 
@@ -38,27 +38,21 @@ const MyMap = ({
   };
 
   return (
-    <LoadScript
-      libraries={["places"]}
-      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-    >
-      <div className="flex flex-col gap-4">
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          center={defaultCenter}
-          zoom={8}
-          onClick={handleMapClick}
-        >
-          {/* Additional components like <Marker /> can be added here */}
-          {searchLocationPosition && (
-            <Marker position={searchLocationPosition} />
-          )}
-        </GoogleMap>
-        <PlacesAutocompleteComponent
-          setSearchLocationPosition={setSearchLocationPosition}
-        />
-      </div>
-    </LoadScript>
+    <div className="flex flex-col gap-4">
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        center={defaultCenter}
+        zoom={8}
+        onClick={handleMapClick}
+        clickableIcons={false}
+      >
+        {/* Additional components like <Marker /> can be added here */}
+        {searchLocationPosition && <Marker position={searchLocationPosition} />}
+      </GoogleMap>
+      <PlacesAutocompleteComponent
+        setSearchLocationPosition={setSearchLocationPosition}
+      />
+    </div>
   );
 };
 
