@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import SelectComponent from "@/app/components/SelectComponent";
 import { Municipality, Sensor } from "@/types/general";
+import { useSensorStore } from "@/zustand";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 import MyMap from "../Map";
@@ -17,6 +18,7 @@ type Methods = {
 
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   const urlSearchParams = useSearchParams();
+  const { sensors, add, modify } = useSensorStore();
 
   const action = urlSearchParams.get("action");
 
@@ -46,7 +48,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     latitude: 0.0,
     image: "",
     mac_address: "",
-    id: "",
+    id: 0,
   });
 
   async function handleSubmit() {
@@ -59,18 +61,22 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
       },
     });
     // If response was a success, clear the form
-    if (response.ok && action !== "edit") {
-      setSensor({
-        municipality: "",
-        station_name: "",
-        longitude: 0.0,
-        latitude: 0.0,
-        image: "",
-        mac_address: "",
-        id: "",
-      });
-    } else {
-      console.log(response);
+    if (response.ok) {
+      const newSensor: Sensor = await response.json();
+      if (action == "edit") {
+        modify(newSensor);
+      } else {
+        setSensor({
+          municipality: "",
+          station_name: "",
+          longitude: 0.0,
+          latitude: 0.0,
+          image: "",
+          mac_address: "",
+          id: 0,
+        });
+        add(newSensor);
+      }
     }
   }
 

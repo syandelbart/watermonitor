@@ -20,7 +20,8 @@
     "react-select": "^5.8.0",
     "reactstrap": "^9.2.2",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",

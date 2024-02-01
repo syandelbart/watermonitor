@@ -6,13 +6,13 @@ export type Station = {
 };
 
 export type Municipality = {
-  id: string;
+  id: number;
   province: string;
   name: string;
 };
 
 export type Measurement = {
-  id: string;
+  id: number;
   sensor_id: string;
   moment: string;
   measurement: string;
@@ -25,7 +25,7 @@ export enum MeasurementTypes {
 }
 
 export type Sensor = {
-  id: string;
+  id: number;
   municipality: string;
   station_name: string;
   mac_address: string;

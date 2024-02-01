@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import {
   Table,
   TableBody,
@@ -12,13 +10,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Measurement } from "@/types/general";
+import { useMeasurementStore } from "@/zustand";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const MeasurementTable = ({
   measurementData,
 }: {
   measurementData: Measurement[];
 }) => {
-  const [measurements, setMeasurements] = useState(measurementData);
+  const { measurements, add, remove } = useMeasurementStore();
 
   return (
     <Table>
@@ -45,7 +45,15 @@ const MeasurementTable = ({
             </TableCell>
             <TableCell>{measurement.moment}</TableCell>
 
-            <TableCell>{/* Actions */}</TableCell>
+            <TableCell className="flex text-2xl gap-2">
+              <Icon
+                className="cursor-pointer"
+                icon="mdi:delete"
+                onClick={async () => {
+                  remove(measurement.id);
+                }}
+              />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
