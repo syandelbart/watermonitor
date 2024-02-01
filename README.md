@@ -1,8 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Water Monitor 🌊
+
+## About The Project
+
+Water Monitor is a cutting-edge platform designed to monitor water levels in various locations in real-time. By integrating data from external sensors and allowing for the addition of proprietary sensors, the project aims to offer comprehensive insights into water conditions to support sustainable water management practices.
+
+## Technologies
+
+- **NextJS**: Utilized for its server-side rendering capabilities, enhancing SEO and performance.
+- **Tailwind**: Employs a utility-first approach to CSS, facilitating efficient styling.
+- **TypeScript**: Ensures type safety and enhances the development experience by adding static typing to JavaScript.
+
+## Environment Variables
+
+To configure the project correctly, copy the `.env.example` file to `.env.local` and update it with the appropriate values:
+
+- `NODE_RED_API`: For internal API calls (server-side).
+- `API_USERNAME` & `API_PASSWORD`: Credentials for authenticating with the Node Red API using basic auth.
+- `NEXT_PUBLIC_GRAFANA_URL`: The public URL for Grafana dashboards, integrated directly into the dashboard.
+- `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`: The API key used to show the Google Maps embeds; At least the following APIs need to be enabled: `Javascript API`, `Places`, `Geocoded`, `Maps`
 
 ## Getting Started
-
-First, run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +31,21 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:8080` to view the application. Deployment is managed through Vercel for optimal Next.js integration.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contributors
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project was brought to life thanks to the dedicated efforts of:
 
-## Learn More
+- Syan Delbart
+- Jen Verboven
+- Tristan Van Loy
+- Wieland Vandebotermet
+- Lucas De Greef
+- Charles Kwakye
 
-To learn more about Next.js, take a look at the following resources:
+Their contributions range from initial development to sensor integration, UI/UX design, backend and API development, data visualization, and project deployment.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Vercel is used for deploying the application, ensuring a smooth, scalable deployment process tailored for Next.js applications.
