@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import Navigation from "../../componets/NavBar";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -13,5 +15,10 @@ export default function MeasurmentLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <section>{children}</section>;
+  return (
+    <section>
+      <Navigation />
+      {children}
+    </section>
+  );
 }

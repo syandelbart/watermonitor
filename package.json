@@ -9,18 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "clsx": "^2.1.0",
     "fade": "^0.2.0",
+    "firebase": "^10.7.2",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-select": "^5.8.0",
     "reactstrap": "^9.2.2",
-    "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwind": "^4.0.0"
   },
   "devDependencies": {
-    "@iconify/react": "^4.1.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
