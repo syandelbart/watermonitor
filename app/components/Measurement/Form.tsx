@@ -6,7 +6,7 @@ import SelectComponent from "@/app/components/SelectComponent";
 import { Measurement, MeasurementTypes, Sensor } from "@/types/general";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-const Form = ({ sensors }: { sensors: Sensor[] }) => {
+const Form = () => {
   const [sensor, setSensor] = useState<Sensor>();
 
   const [measurement, setMeasurement] = useState<Measurement>({
@@ -70,7 +70,7 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
               }))}
             />
 
-            <label className="m-2 mt-0 text-gray-500 text-sm">Sensor</label>
+            <label>Sensor</label>
           </div>
         </div>
         <hr className="text-xl h-2 text-gray-500 m-1" />
@@ -80,7 +80,6 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
           <div className="flex flex-col">
             <div className="flex flex-row">
               <input
-                className="m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800"
                 type="datetime-local"
                 name="Moment"
                 placeholder="Moment"
@@ -107,13 +106,12 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
               </div>
             </div>
 
-            <label className="m-2 mt-0 text-gray-500 text-sm">Moment</label>
+            <label>Moment</label>
           </div>
         </div>
         <div className="flex flex-row">
           <div className="flex flex-col w-full">
             <input
-              className="m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800"
               type="result"
               name="result"
               value={measurement.result}
@@ -124,9 +122,7 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
                 })
               }
             />
-            <label className="m-2 mt-0 text-gray-500 text-sm">
-              Water Height
-            </label>
+            <label>Water Height</label>
           </div>
           <div className="flex flex-col w-full">
             <SelectComponent
@@ -142,9 +138,7 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
                 label: measurement,
               }))}
             />
-            <label className="m-2 mt-0 text-gray-500 text-sm">
-              Measurement
-            </label>
+            <label>Measurement</label>
           </div>
         </div>
       </div>
