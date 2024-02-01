@@ -7,6 +7,8 @@ import SelectComponent from "@/app/components/SelectComponent";
 import { Municipality, Sensor } from "@/types/general";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
+import MyMap from "../Map";
+
 type Methods = {
   GET: "GET";
   POST: "POST";
@@ -71,6 +73,19 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
       console.log(response);
     }
   }
+
+  const [selectedLocation, setSelectedLocation] =
+    useState<google.maps.LatLng | null>(null);
+
+  const handleLocationSelect = (location: google.maps.LatLng) => {
+    setSelectedLocation(location);
+    setSensor({
+      ...sensor,
+      latitude: location.lat(),
+      longitude: location.lng(),
+    });
+    // Optionally send location to backend here
+  };
 
   async function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
@@ -150,7 +165,16 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
           />
           <label>Sensor MAC Address (optional)</label>
         </div>
-        <hr className="text-xl h-2 text-gray-500 m-1" />
+        <hr className="text-xl h-2 text-gray-500" />
+        <div className="w-full">
+          <h1>Select a Location</h1>
+          <MyMap
+            onLocationSelect={handleLocationSelect}
+            searchLocationPosition={selectedLocation}
+            setSearchLocationPosition={setSelectedLocation}
+          />
+        </div>
+
         <div className="flex flex-row">
           <div className="flex flex-col w-1/2">
             <input
@@ -158,9 +182,15 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               type="number"
               name="Longitude"
               value={sensor.longitude}
-              onChange={(e) =>
-                setSensor({ ...sensor, longitude: Number(e.target.value) })
-              }
+              onChange={(e) => {
+                setSensor({ ...sensor, longitude: Number(e.target.value) });
+                setSelectedLocation(
+                  new google.maps.LatLng(
+                    selectedLocation?.lat() ?? 0,
+                    Number(e.target.value)
+                  )
+                );
+              }}
             />
             <label>Longitude</label>
           </div>
@@ -171,13 +201,19 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               name="Latitude"
               value={sensor.latitude}
               onChange={(e) => {
+                setSelectedLocation(
+                  new google.maps.LatLng(
+                    Number(e.target.value),
+                    selectedLocation?.lng() ?? 0
+                  )
+                );
                 setSensor({ ...sensor, latitude: Number(e.target.value) });
               }}
             />
             <label>Latitude</label>
           </div>
         </div>
-        <hr className="text-xl h-2 text-gray-500 m-1" />
+        <hr className="text-xl h-2 text-gray-500" />
       </div>
       <button
         className="m-3 mt-5 bg-black text-white p-2 rounded"

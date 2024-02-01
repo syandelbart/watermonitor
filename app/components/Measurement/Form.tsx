@@ -73,9 +73,9 @@ const Form = () => {
             <label>Sensor</label>
           </div>
         </div>
-        <hr className="text-xl h-2 text-gray-500 m-1" />
+        <hr className="text-xl h-2 text-gray-500" />
         <div className="flex flex-row"></div>
-        <hr className="text-xl h-2 text-gray-500 m-1" />
+        <hr className="text-xl h-2 text-gray-500" />
         <div className="flex justify-center items-center">
           <div className="flex flex-col">
             <div className="flex flex-row">
