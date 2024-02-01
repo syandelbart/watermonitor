@@ -2,7 +2,8 @@
 import Link from "next/link";
 
 import { usePathname, useRouter } from "next/navigation";
-import { signOut } from '@/auth';
+import { LogoutButton } from "@/app/components/login/logout-btn";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const routes = [
   {
@@ -28,6 +29,7 @@ const routes = [
 ];
 
 const Navbar = () => {
+  const { user } = useUser();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -53,13 +55,7 @@ const Navbar = () => {
             ))}
           </ul>
           <form>
-          <button onClick=
-            {async () => {
-              await signOut();}
-            }
-         className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
-            <div className="hidden md:block" >Sign Out</div>
-          </button>
+          <LogoutButton />
         </form>
         </div>
       </div>
