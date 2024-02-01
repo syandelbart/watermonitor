@@ -11,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Sensor } from "@/types/general";
 import { useSensorStore } from "@/zustand";
 import { Icon } from "@iconify/react";
 
@@ -56,22 +55,7 @@ const SensorTable = () => {
                 className="cursor-pointer"
                 icon="mdi:delete"
                 onClick={async () => {
-                  const response = await fetch(`/api/sensor`, {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-
-                    body: JSON.stringify({
-                      id: sensor.id,
-                    }),
-                  });
-
-                  if (response.ok) {
-                    const deletedSensor: Sensor = await response.json();
-
-                    remove(deletedSensor.id);
-                  }
+                  remove(sensor.id);
                 }}
               />
             </TableCell>
