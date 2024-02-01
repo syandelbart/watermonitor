@@ -17,10 +17,19 @@ export const useSensorStore = create<SensorStore>((set) => {
     sensors: [],
     isFetchedInitial: false,
     add: (sensor) => set((state) => ({ sensors: [...state.sensors, sensor] })),
-    remove: (sensorId) =>
+    remove: async (sensorId) => {
+      const response = await fetch(`/api/sensor`, {
+        body: JSON.stringify({ id: sensorId }),
+        method: "DELETE",
+        headers: NodeRedAuthHeaders,
+      });
+
+      if (!response.ok) return;
+
       set((state) => ({
         sensors: state.sensors.filter((sensor) => sensor.id !== sensorId),
-      })),
+      }));
+    },
     modify: (sensor) =>
       set((state) => ({
         sensors: state.sensors.map((s) =>
@@ -32,6 +41,9 @@ export const useSensorStore = create<SensorStore>((set) => {
       try {
         const response = await fetch("/api/sensor", {
           headers: NodeRedAuthHeaders,
+          next: {
+            revalidate: 0,
+          },
         });
         const data: Sensor[] = await response.json();
         set({ sensors: data, isFetchedInitial: true });
@@ -64,17 +76,29 @@ export const useMeasurementStore = create<MeasurementStore>((set) => {
     isFetchedInitial: false,
     add: (measurement) =>
       set((state) => ({ measurements: [...state.measurements, measurement] })),
-    remove: (measurementId) =>
+    remove: async (measurementId) => {
+      const response = await fetch(`/api/measurement`, {
+        body: JSON.stringify({ id: measurementId }),
+        method: "DELETE",
+        headers: NodeRedAuthHeaders,
+      });
+
+      if (!response.ok) return;
+
       set((state) => ({
         measurements: state.measurements.filter(
           (measurement) => measurement.id !== measurementId
         ),
-      })),
+      }));
+    },
     removeAll: () => set({ measurements: [] }),
     fetch: async () => {
       try {
-        const response = await fetch("/api/measurements", {
+        const response = await fetch("/api/measurement", {
           headers: NodeRedAuthHeaders,
+          next: {
+            revalidate: 0,
+          },
         });
         const data: Measurement[] = await response.json();
         set({ measurements: data, isFetchedInitial: true });
