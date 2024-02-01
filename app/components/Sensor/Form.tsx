@@ -173,14 +173,16 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
           <label>Sensor MAC Address (optional)</label>
         </div>
         <hr className="text-xl h-2 text-gray-500" />
-        <div className="w-full">
-          <h1>Select a Location</h1>
-          <MyMap
-            onLocationSelect={handleLocationSelect}
-            searchLocationPosition={selectedLocation}
-            setSearchLocationPosition={setSelectedLocation}
-          />
-        </div>
+        {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+          <div className="w-full">
+            <h1>Select a Location</h1>
+            <MyMap
+              onLocationSelect={handleLocationSelect}
+              searchLocationPosition={selectedLocation}
+              setSearchLocationPosition={setSelectedLocation}
+            />
+          </div>
+        ) : null}
 
         <div className="flex flex-row">
           <div className="flex flex-col w-1/2">
