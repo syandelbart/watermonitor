@@ -3,7 +3,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -22,9 +21,6 @@ const MeasurementTable = ({
 
   return (
     <Table>
-      <TableCaption>
-        A table of all the measurements in the system.
-      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>ID</TableHead>

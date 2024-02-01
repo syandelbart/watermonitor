@@ -9,11 +9,8 @@ const GET = async (request: Request) => {
     headers: headers,
   });
 
-  console.log(response);
-
   try {
     const data = await response.json();
-    console.log(data);
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
     });
