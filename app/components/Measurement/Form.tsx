@@ -69,10 +69,16 @@ const Form = () => {
                 setSensor(sensors.find((sensor) => sensor.id === e.value));
                 setMeasurement({ ...measurement, sensor_id: e.value });
               }}
-              options={sensors.map((sensor) => ({
-                value: sensor.id,
-                label: `${sensor.municipality}/${sensor.station_name}`,
-              }))}
+              options={[
+                {
+                  value: "",
+                  label: "Select sensor",
+                },
+                ...sensors.map((sensor) => ({
+                  value: sensor.id,
+                  label: `${sensor.municipality}/${sensor.station_name}`,
+                })),
+              ]}
             />
 
             <label>Sensor</label>
