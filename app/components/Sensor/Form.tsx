@@ -80,8 +80,9 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     }
   }
 
-  const [selectedLocation, setSelectedLocation] =
-    useState<google.maps.LatLng | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<
+    google.maps.LatLng | google.maps.LatLngLiteral | null
+  >(null);
 
   const handleLocationSelect = (location: google.maps.LatLng) => {
     setSelectedLocation(location);

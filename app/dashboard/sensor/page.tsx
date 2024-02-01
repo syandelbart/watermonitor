@@ -13,7 +13,6 @@ const Page = async () => {
     }).then((res) => res.json());
   } catch (err: unknown) {
     municipalities = [];
-    console.log(err);
   }
 
   return (

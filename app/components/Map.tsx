@@ -9,16 +9,21 @@ const mapContainerStyle = {
   height: "400px",
 };
 
-const defaultCenter = new google.maps.LatLng(51.219448, 4.402464);
+const defaultCenter = {
+  lat: 51.219448,
+  lng: 4.402464,
+};
 
 const MyMap = ({
   onLocationSelect,
   searchLocationPosition,
   setSearchLocationPosition,
 }: {
-  onLocationSelect: (location: LatLng) => void;
-  searchLocationPosition: LatLng | null;
-  setSearchLocationPosition: Dispatch<SetStateAction<LatLng | null>>;
+  onLocationSelect: (location: google.maps.LatLng) => void;
+  searchLocationPosition: google.maps.LatLng | null;
+  setSearchLocationPosition: Dispatch<
+    SetStateAction<google.maps.LatLng | google.maps.LatLngLiteral | null>
+  >;
 }) => {
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {
@@ -45,7 +50,9 @@ const MyMap = ({
           onClick={handleMapClick}
         >
           {/* Additional components like <Marker /> can be added here */}
-          <Marker position={searchLocationPosition} />
+          {searchLocationPosition && (
+            <Marker position={searchLocationPosition} />
+          )}
         </GoogleMap>
         <PlacesAutocompleteComponent
           setSearchLocationPosition={setSearchLocationPosition}

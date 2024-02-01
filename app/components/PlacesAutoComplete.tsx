@@ -9,7 +9,7 @@ const PlacesAutocompleteComponent = ({
   setSearchLocationPosition,
 }: {
   setSearchLocationPosition: React.Dispatch<
-    React.SetStateAction<Location | null>
+    React.SetStateAction<google.maps.LatLng | google.maps.LatLngLiteral | null>
   >;
 }) => {
   const [address, setAddress] = React.useState("");
@@ -19,7 +19,7 @@ const PlacesAutocompleteComponent = ({
     const latLng = await getLatLng(results[0]);
     // setAddress(value);
     // console.log(latLng);
-    setSearchLocationPosition(latLng as Location);
+    setSearchLocationPosition(latLng);
   };
 
   return (

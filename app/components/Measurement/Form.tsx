@@ -4,15 +4,17 @@ import { useState } from "react";
 
 import SelectComponent from "@/app/components/SelectComponent";
 import { Measurement, MeasurementTypes, Sensor } from "@/types/general";
-import { useSensorStore } from "@/zustand";
+import { useMeasurementStore, useSensorStore } from "@/zustand";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Form = () => {
   const { sensors, add, remove } = useSensorStore();
+  const measurementStore = useMeasurementStore();
   const [sensor, setSensor] = useState<Sensor>();
 
   const [measurement, setMeasurement] = useState<Measurement>({
-    id: "",
+    id: 0,
+    // formdata date
     moment: "",
     result: 0,
     measurement: MeasurementTypes.m,
@@ -32,8 +34,9 @@ const Form = () => {
 
     if (response.ok) {
       console.log("Measurement added");
+      measurementStore.add(measurement);
       setMeasurement({
-        id: "",
+        id: 0,
         moment: "",
         result: 0,
         measurement: MeasurementTypes.m,
