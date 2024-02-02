@@ -103,6 +103,17 @@ const SensorTable = () => {
                   remove(sensor.id);
                 }}
               />
+              <Link
+                href={`/dashboard/sensor/graph/${
+                  // Replace all / with %2F
+                  `${sensor.municipality}/${sensor.station_name}`.replace(
+                    /\//g,
+                    "%2F"
+                  )
+                }`}
+              >
+                <Icon icon="mdi:chart-line" />
+              </Link>
             </TableCell>
           </TableRow>
         ))}
