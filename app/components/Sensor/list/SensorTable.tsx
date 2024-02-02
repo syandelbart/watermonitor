@@ -43,13 +43,6 @@ const SensorTable = () => {
                 `(${sensor.longitude},${sensor.latitude})`}
             </TableCell>
             <TableCell className="flex text-2xl gap-2">
-              <Link
-                href={`/dashboard/sensor?id=${sensor.id}&action=edit`}
-                className="cursor-pointer"
-              >
-                <Icon icon="mdi:pencil" />
-              </Link>
-
               <button
                 onClick={async () => {
                   console.log("clicked");
@@ -96,14 +89,25 @@ const SensorTable = () => {
                 <Icon icon="mdi:eye" />
               </button>
 
-              <Icon
-                className="cursor-pointer"
-                icon="mdi:delete"
-                onClick={async () => {
-                  remove(sensor.id);
-                }}
-              />
+              {sensor.mac_address && (
+                <>
+                  <Link
+                    href={`/dashboard/sensor?id=${sensor.id}&action=edit`}
+                    className="cursor-pointer"
+                  >
+                    <Icon icon="mdi:pencil" />
+                  </Link>
+                  <Icon
+                    className="cursor-pointer"
+                    icon="mdi:delete"
+                    onClick={async () => {
+                      remove(sensor.id);
+                    }}
+                  />
+                </>
+              )}
               <Link
+                target="_blank"
                 href={`/dashboard/sensor/graph/${
                   // Replace all / with %2F
                   `${sensor.municipality}/${sensor.station_name}`.replace(
