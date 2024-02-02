@@ -36,7 +36,7 @@ export const useSensorStore = create<SensorStore>((set) => {
     modify: (sensor) =>
       set((state) => ({
         sensors: state.sensors.map((s) =>
-          sensor.id === s.id ? { ...sensor } : sensor
+          sensor.id === s.id ? { ...sensor } : s
         ),
       })),
     removeAll: () => set({ sensors: [] }),
