@@ -66,7 +66,10 @@ const SensorTable = () => {
 
                     const res = await fetch("/api/push/subscribe", {
                       method: "POST",
-                      body: JSON.stringify(subscription),
+                      body: JSON.stringify({
+                        stationName: `${sensor.municipality}/${sensor.station_name}`,
+                        subscription: subscription,
+                      }),
                       headers: {
                         "content-type": "application/json",
                       },
@@ -78,6 +81,19 @@ const SensorTable = () => {
                 }}
               >
                 <Icon icon="mdi:bell" />
+              </button>
+
+              <button
+                onClick={async () => {
+                  await fetch(`/api/push/send-notification`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                      stationName: `${sensor.municipality}/${sensor.station_name}`,
+                    }),
+                  });
+                }}
+              >
+                <Icon icon="mdi:eye" />
               </button>
 
               <Icon
