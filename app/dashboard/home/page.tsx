@@ -1,9 +1,7 @@
-import { Label } from "reactstrap";
-
 import Protected from "@/app/components/Protected";
 import { NodeRedAuthHeaders, Station } from "@/types/general";
 
-import Dashboard from "./Dashboard";
+import Dashboard from "../../components/Dashboard/home/Dashboard";
 
 const Home = async () => {
   let stations: Station[];
@@ -25,7 +23,6 @@ const Home = async () => {
 
   return (
     <main className="flex m-10 flex-col">
-      <Label className="m-3 text-3xl items-start">WaterWatchers</Label>
       <Protected>
         <div>
           <h1>Dashboard</h1>

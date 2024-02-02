@@ -10,6 +10,10 @@ const getConstructedNameFromStation = (station: Station) => {
 };
 
 const Dashboard = ({ stations }: { stations: Station[] }) => {
+  const [period, setPeriod] = useState({
+    from: new Date().getTime() - 1000 * 60 * 60 * 6,
+    to: new Date().getTime(),
+  });
   const [selectedStations, setSelectedStations] = useState<
     {
       label: string;
@@ -34,9 +38,29 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
             label="Stations"
             isMulti
             options={stations.map((station) => ({
-              value: getConstructedNameFromStation(station),
+              value: station.station,
               label: getConstructedNameFromStation(station),
             }))}
+          />
+          <input
+            type="datetime-local"
+            onChange={(event) =>
+              setPeriod({
+                ...period,
+                from: new Date(event.target.value).getTime(),
+              })
+            }
+            value={new Date(period.from).toISOString().slice(0, 16)}
+          />
+          <input
+            type="datetime-local"
+            onChange={(event) =>
+              setPeriod({
+                ...period,
+                to: new Date(event.target.value).getTime(),
+              })
+            }
+            value={new Date(period.to).toISOString().slice(0, 16)}
           />
         </div>
         <div className="mt-5 ml-2 flex justify-end">
@@ -52,9 +76,9 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
       <div className="grid grid-cols-2 gap-4">
         <div className="border-1 rounded overflow-hidden">
           <iframe
-            src={`${
-              process.env.NEXT_PUBLIC_GRAFANA_URL
-            }?orgId=1&from=1706496762253&to=1706518362253&panelId=34&var-station=${savedStations
+            src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${
+              period.from
+            }&to=${period.to}&panelId=34&var-station=${savedStations
               .map((station) => station.value)
               .join("&var-station=")}`}
             width="100%"
@@ -63,7 +87,7 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
         </div>
         <div className="border-1 rounded overflow-hidden">
           <iframe
-            src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=1706498094771&to=1706519694771&panelId=22`}
+            src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${period.from}&to=${period.to}&panelId=22`}
             width="100%"
             className="aspect-video"
           ></iframe>
@@ -74,7 +98,7 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
               <h2>{station.label}</h2>
               <div className="border-1 rounded overflow-hidden">
                 <iframe
-                  src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=1706498160237&to=1706519760238&panelId=38&var-station=${station.value}`}
+                  src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${period.from}&to=${period.to}&panelId=38&var-station=${station.value}`}
                   width="100%"
                   className="aspect-video"
                 ></iframe>

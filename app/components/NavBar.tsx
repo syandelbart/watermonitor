@@ -1,9 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
-
-
 
 const routes = [
   {
@@ -15,11 +12,18 @@ const routes = [
     name: "Measurement",
   },
   {
+    path: "/dashboard/measurement/list",
+    name: "Measurement List",
+  },
+  {
     path: "/dashboard/sensor",
     name: "Sensor",
   },
+  {
+    path: "/dashboard/sensor/list",
+    name: "Sensor List",
+  },
 ];
-
 
 const Navbar = () => {
   const router = useRouter();
@@ -27,8 +31,9 @@ const Navbar = () => {
 
   return (
     <div className="w-full h-20 bg-emerald-800 sticky top-0 z-50">
-      <div className="container mx-auto px-4 h-full">
-        <div className="flex justify-between items-center h-full">
+      <div className="mx-auto px-4 h-full">
+        <div className="flex items-center h-full gap-10">
+          <h1 className="text-white text-3xl">Water Watchers</h1>
           <ul className="hidden md:flex gap-x-6 text-white">
             {routes.map((route) => (
               <li key={route.path}>
