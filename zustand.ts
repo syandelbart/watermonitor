@@ -18,11 +18,14 @@ export const useSensorStore = create<SensorStore>((set) => {
     isFetchedInitial: false,
     add: (sensor) => set((state) => ({ sensors: [...state.sensors, sensor] })),
     remove: async (sensorId) => {
-      const response = await fetch(`/api/sensor`, {
-        body: JSON.stringify({ id: sensorId }),
-        method: "DELETE",
-        headers: NodeRedAuthHeaders,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_APPLICATION_URL}/api/sensor`,
+        {
+          body: JSON.stringify({ id: sensorId }),
+          method: "DELETE",
+          headers: NodeRedAuthHeaders,
+        }
+      );
 
       if (!response.ok) return;
 
@@ -39,12 +42,15 @@ export const useSensorStore = create<SensorStore>((set) => {
     removeAll: () => set({ sensors: [] }),
     fetch: async () => {
       try {
-        const response = await fetch("/api/sensor", {
-          headers: NodeRedAuthHeaders,
-          next: {
-            revalidate: 0,
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_APPLICATION_URL}/api/sensor`,
+          {
+            headers: NodeRedAuthHeaders,
+            next: {
+              revalidate: 0,
+            },
+          }
+        );
         const data: Sensor[] = await response.json();
         set({ sensors: data, isFetchedInitial: true });
       } catch (error) {
@@ -77,11 +83,14 @@ export const useMeasurementStore = create<MeasurementStore>((set) => {
     add: (measurement) =>
       set((state) => ({ measurements: [...state.measurements, measurement] })),
     remove: async (measurementId) => {
-      const response = await fetch(`/api/measurement`, {
-        body: JSON.stringify({ id: measurementId }),
-        method: "DELETE",
-        headers: NodeRedAuthHeaders,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_APPLICATION_URL}/api/measurement`,
+        {
+          body: JSON.stringify({ id: measurementId }),
+          method: "DELETE",
+          headers: NodeRedAuthHeaders,
+        }
+      );
 
       if (!response.ok) return;
 
@@ -94,12 +103,15 @@ export const useMeasurementStore = create<MeasurementStore>((set) => {
     removeAll: () => set({ measurements: [] }),
     fetch: async () => {
       try {
-        const response = await fetch("/api/measurement", {
-          headers: NodeRedAuthHeaders,
-          next: {
-            revalidate: 0,
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_APPLICATION_URL}/api/measurement`,
+          {
+            headers: NodeRedAuthHeaders,
+            next: {
+              revalidate: 0,
+            },
+          }
+        );
         const data: Measurement[] = await response.json();
         set({ measurements: data, isFetchedInitial: true });
       } catch (error) {
