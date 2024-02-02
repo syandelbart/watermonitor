@@ -51,12 +51,14 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     station_name: "",
     longitude: 0.0,
     latitude: 0.0,
-    image: undefined,
+    image: "",
     mac_address: "",
     id: "",
   });
 
   async function handleSubmit() {
+    // const result = JSON.stringify(sensor);
+    // console.log(result);
     const response = await fetch(`/api/sensor`, {
       method: action === "edit" ? "PUT" : "POST",
       body: JSON.stringify(sensor),
@@ -71,20 +73,20 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     const createdSensor: Sensor = await response.json();
 
     // Upload image
-    if (createdSensor?.id && image) {
-      const formData = new FormData();
-      formData.append("image", image);
-      formData.append("id", createdSensor.id);
-      const response = await fetch(`/api/sensor/image`, {
-        method: "POST",
-        body: formData,
-      });
+    // if (createdSensor?.id && image) {
+    //   const formData = new FormData();
+    //   formData.append("image", image);
+    //   formData.append("id", createdSensor.id);
+    //   const response = await fetch(`/api/sensor/image`, {
+    //     method: "POST",
+    //     body: formData,
+    //   });
 
-      if (response.ok) {
-        console.log("Image uploaded");
-        setImage(undefined);
-      }
-    }
+    //   if (response.ok) {
+    //     console.log("Image uploaded");
+    //     setImage(undefined);
+    //   }
+    // }
 
     // If response was a success, clear the form
     if (action !== "edit") {
@@ -93,7 +95,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         station_name: "",
         longitude: 0.0,
         latitude: 0.0,
-        image: undefined,
+        image: "",
         mac_address: "",
         id: "",
       });
@@ -104,8 +106,64 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
     if (file) {
       setImage(file);
+
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        // resolve(fileReader.result);
+        // console.log(fileReader.result);
+
+        const base64 = fileReader.result;
+        // if (!base64) return;
+        // if(typeof base64 === "object"){
+        //   base64.
+        // }
+        setSensor({...sensor, image: base64 as string})
+      };
+
+      fileReader.onerror = (error) => {
+        // reject(error);
+        console.log(error);
+      };
+
+      // const reader = new FileReader();
+
+      // reader.onload = (e) => {
+      //   // e.target.result contains the base64-encoded string
+      //   const base64String = e.target?.result as string;
+      //   console.log(base64String);
+
+      //   // You can set the base64String state or use it as needed
+      // };
+
+      // reader.readAsDataURL(file);
+
+      // const base64 = toBase64(file as File);
+
+      // console.log(base64);
     }
   }
+
+  // Convert a file to base64 string
+  // const toBase64 = (file: File) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+
+  //     fileReader.readAsDataURL(file);
+
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //       console.log(fileReader.result);
+  //     };
+
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
+
 
   return (
     <div className="flex m-3 flex-col justify-center items-center">
@@ -220,7 +278,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
           )}
           <label className="m-2 mt-0 text-gray-500 text-sm">Image</label>
 
-          <input type="file" onChange={handleChangeImage} />
+          <input type="file" accept="image/*" onChange={handleChangeImage} />
         </div>
       </div>
       <button
