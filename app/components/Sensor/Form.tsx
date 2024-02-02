@@ -92,11 +92,13 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
       }
     }
   }
+  
 
   const [selectedLocation, setSelectedLocation] = useState<
     google.maps.LatLng | google.maps.LatLngLiteral | null
   >(null);
 
+  
   const handleLocationSelect = (location: google.maps.LatLng) => {
     setSelectedLocation(location);
     setSensor({
@@ -251,14 +253,14 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
               >
                 <MyMap
                   onLocationSelect={handleLocationSelect}
-                  searchLocationPosition={selectedLocation}
+                  searchLocationPosition={selectedLocation as google.maps.LatLng }
                   setSearchLocationPosition={setSelectedLocation}
                 />
               </LoadScript>
             ) : (
               <MyMap
                 onLocationSelect={handleLocationSelect}
-                searchLocationPosition={selectedLocation}
+                searchLocationPosition={selectedLocation as google.maps.LatLng}
                 setSearchLocationPosition={setSelectedLocation}
               />
             )

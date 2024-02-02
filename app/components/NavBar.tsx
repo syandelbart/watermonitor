@@ -1,6 +1,10 @@
 "use client";
 import Link from "next/link";
+
 import { usePathname, useRouter } from "next/navigation";
+import { LogoutButton } from "@/app/components/login/logout-btn";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { redirect } from 'next/navigation'
 
 const routes = [
   {
@@ -28,6 +32,15 @@ const routes = [
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { user, error, isLoading } = useUser();
+  
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+  if(!user)
+  {
+    redirect('/api/auth/login');
+  }
+
 
   return (
     <div className="w-full h-20 bg-emerald-800 sticky top-0 z-50">
@@ -50,6 +63,9 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
+          <form>
+          <LogoutButton />
+        </form>
         </div>
       </div>
     </div>

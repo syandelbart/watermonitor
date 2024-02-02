@@ -1,8 +1,8 @@
 import "./globals.css";
 
-import { Inter } from "next/font/google";
-
 import Navigation from "./components/NavBar";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navigation />
-
-        <div className="container mx-auto mt-10">{children}</div>
+        <UserProvider>
+        {children}
+        </UserProvider>
       </body>
     </html>
   );
