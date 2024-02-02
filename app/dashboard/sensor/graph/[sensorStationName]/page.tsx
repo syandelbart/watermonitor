@@ -6,7 +6,7 @@ const SensorGraph = ({ params }: { params: { sensorStationName: string } }) => {
 
   return (
     <iframe
-      src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${
+      src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?theme=light&orgId=1&from=${
         new Date().getTime() - 1000 * 60 * 60 * 6
       }&to=${new Date().getTime()}&panelId=38&var-station=${sensorStationName}`}
       width="100%"

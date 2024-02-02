@@ -24,7 +24,7 @@ const Home = async () => {
     <main className="flex m-10 flex-col">
       <Protected>
         <div>
-          <h1>Dashboard</h1>
+          <h1 className="text-4xl">Dashboard</h1>
           <Dashboard stations={stations} />
         </div>
       </Protected>
