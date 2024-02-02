@@ -80,14 +80,14 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
               period.from
             }&to=${period.to}&panelId=34&var-station=${savedStations
               .map((station) => station.value)
-              .join("&var-station=")}`}
+              .join("&var-station=")}&theme=light`}
             width="100%"
             className="aspect-video"
           ></iframe>
         </div>
         <div className="border-1 rounded overflow-hidden">
           <iframe
-            src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${period.from}&to=${period.to}&panelId=22`}
+            src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${period.from}&to=${period.to}&panelId=22&theme=light`}
             width="100%"
             className="aspect-video"
           ></iframe>
@@ -98,7 +98,7 @@ const Dashboard = ({ stations }: { stations: Station[] }) => {
               <h2>{station.label}</h2>
               <div className="border-1 rounded overflow-hidden">
                 <iframe
-                  src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${period.from}&to=${period.to}&panelId=38&var-station=${station.value}`}
+                  src={`${process.env.NEXT_PUBLIC_GRAFANA_URL}?orgId=1&from=${period.from}&to=${period.to}&panelId=38&var-station=${station.value}&theme=light`}
                   width="100%"
                   className="aspect-video"
                 ></iframe>
