@@ -20,7 +20,7 @@ const MyMap = ({
   setSearchLocationPosition,
 }: {
   onLocationSelect: (location: google.maps.LatLng) => void;
-  searchLocationPosition: google.maps.LatLng | null;
+  searchLocationPosition: google.maps.LatLng | google.maps.LatLngLiteral | null;
   setSearchLocationPosition: Dispatch<
     SetStateAction<google.maps.LatLng | google.maps.LatLngLiteral | null>
   >;
