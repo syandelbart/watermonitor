@@ -18,6 +18,7 @@ To configure the project correctly, copy the `.env.example` file to `.env.local`
 - `API_USERNAME` & `API_PASSWORD`: Credentials for authenticating with the Node Red API using basic auth.
 - `NEXT_PUBLIC_GRAFANA_URL`: The public URL for Grafana dashboards, integrated directly into the dashboard.
 - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`: The API key used to show the Google Maps embeds; At least the following APIs need to be enabled: `Javascript API`, `Places`, `Geocoded`, `Maps`
+- `NEXT_PUBLIC_VAPID_PUBLIC_KEY` & `VAPID_PRIVATE_KEY`: The API keys necessary to send and receive push notifications, execute `web-push generate-vapid-keys` to get valid keys. You will need to have `web-push` installed.
 
 ## Getting Started
 
