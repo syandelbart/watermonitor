@@ -276,7 +276,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
                 setSensor({ ...sensor, longitude: Number(e.target.value) });
                 setSelectedLocation(
                   new google.maps.LatLng(
-                    selectedLocation?.lat() ?? 0,
+                    (selectedLocation as google.maps.LatLng)?.lat() ?? 0,
                     Number(e.target.value)
                   )
                 );
@@ -294,7 +294,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
                 setSelectedLocation(
                   new google.maps.LatLng(
                     Number(e.target.value),
-                    selectedLocation?.lng() ?? 0
+                    (selectedLocation as google.maps.LatLng)?.lng() ?? 0
                   )
                 );
                 setSensor({ ...sensor, latitude: Number(e.target.value) });
