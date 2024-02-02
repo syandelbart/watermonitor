@@ -15,7 +15,6 @@ const Home = async () => {
     );
 
     stations = await stationsFetched.json();
-    console.log(stations);
   } catch (err: unknown) {
     stations = [];
     console.log(err);
