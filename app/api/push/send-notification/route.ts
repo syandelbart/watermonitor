@@ -39,7 +39,10 @@ const POST = async (req: Request) => {
 
   const notificationToSend: NotificationSendRequest = {
     title: "Sensor Alert",
-    body: `This is a test notification for ${data.stationName}`,
+    body: `This is a test notification for ${
+      data.stationName
+    } ${new Date().toLocaleString()}`,
+
     icon: "https://some-image-url.jpg",
     data: {
       url: encodeURI(
