@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import SelectComponent from "@/app/components/SelectComponent";
 import { Municipality, Sensor } from "@/types/general";
 import { useSensorStore } from "@/zustand";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { LoadScript } from "@react-google-maps/api";
 
 import MyMap from "../Map";
@@ -75,25 +74,6 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
 
     if (!response.ok) return console.log(response);
 
-    // const createdSensor: Sensor = await response.json();
-
-    // Upload image
-    // if (createdSensor?.id && image) {
-    //   const formData = new FormData();
-    //   formData.append("image", image);
-    //   formData.append("id", createdSensor.id);
-    //   const response = await fetch(`/api/sensor/image`, {
-    //     method: "POST",
-    //     body: formData,
-    //   });
-
-    //   if (response.ok) {
-    //     console.log("Image uploaded");
-    //     setImage(undefined);
-    //   }
-    // }
-
-    // If response was a success, clear the form
     if (response.ok) {
       const newSensor: Sensor = await response.json();
       if (action == "edit") {
@@ -145,7 +125,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         // if(typeof base64 === "object"){
         //   base64.
         // }
-        setSensor({...sensor, image: base64 as string})
+        setSensor({ ...sensor, image: base64 as string });
       };
 
       fileReader.onerror = (error) => {
@@ -188,7 +168,6 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   //     };
   //   });
   // };
-
 
   return (
     <div className="flex m-3 flex-col justify-center items-center">
