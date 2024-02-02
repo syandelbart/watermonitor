@@ -3,6 +3,18 @@
 @tailwind utilities;
  
 @layer base {
+  input  {
+    @apply p-1.5 mb-1 rounded border border-gray-300 text-gray-800
+  }
+
+  label {
+    @apply mx-2 text-gray-500 text-sm
+  }
+
+  
+
+
+
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;

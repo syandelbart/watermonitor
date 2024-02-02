@@ -14,7 +14,6 @@ const List = async () => {
 
   return (
     <div>
-      <h1>Measurement List</h1>
       <div>
         <MeasurementTable measurementData={measurements} />
       </div>

@@ -4,13 +4,17 @@ import { useState } from "react";
 
 import SelectComponent from "@/app/components/SelectComponent";
 import { Measurement, MeasurementTypes, Sensor } from "@/types/general";
+import { useMeasurementStore, useSensorStore } from "@/zustand";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-const Form = ({ sensors }: { sensors: Sensor[] }) => {
+const Form = () => {
+  const { sensors, add, remove } = useSensorStore();
+  const measurementStore = useMeasurementStore();
   const [sensor, setSensor] = useState<Sensor>();
 
   const [measurement, setMeasurement] = useState<Measurement>({
-    id: "",
+    id: 0,
+    // formdata date
     moment: "",
     result: 0,
     measurement: MeasurementTypes.m,
@@ -30,8 +34,9 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
 
     if (response.ok) {
       console.log("Measurement added");
+      measurementStore.add(measurement);
       setMeasurement({
-        id: "",
+        id: 0,
         moment: "",
         result: 0,
         measurement: MeasurementTypes.m,
@@ -48,6 +53,7 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
         <div className="flex flex-row">
           <div className="flex flex-col w-full">
             <SelectComponent
+              name="sensorname"
               value={
                 // map sensor find to value and label
                 sensor
@@ -64,23 +70,26 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
                 setSensor(sensors.find((sensor) => sensor.id === e.value));
                 setMeasurement({ ...measurement, sensor_id: e.value });
               }}
-              options={sensors.map((sensor) => ({
-                value: sensor.id,
-                label: `${sensor.municipality}/${sensor.station_name}`,
-              }))}
+              options={[
+                {
+                  value: "",
+                  label: "Select sensor",
+                },
+                ...sensors.map((sensor) => ({
+                  value: sensor.id,
+                  label: `${sensor.municipality}/${sensor.station_name}`,
+                })),
+              ]}
             />
 
-            <label className="m-2 mt-0 text-gray-500 text-sm">Sensor</label>
+            <label htmlFor="sensorname">Sensor</label>
           </div>
         </div>
-        <hr className="text-xl h-2 text-gray-500 m-1" />
-        <div className="flex flex-row"></div>
-        <hr className="text-xl h-2 text-gray-500 m-1" />
+
         <div className="flex justify-center items-center">
           <div className="flex flex-col">
             <div className="flex flex-row">
               <input
-                className="m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800"
                 type="datetime-local"
                 name="Moment"
                 placeholder="Moment"
@@ -107,13 +116,12 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
               </div>
             </div>
 
-            <label className="m-2 mt-0 text-gray-500 text-sm">Moment</label>
+            <label>Moment</label>
           </div>
         </div>
         <div className="flex flex-row">
           <div className="flex flex-col w-full">
             <input
-              className="m-2 p-2 mb-1 rounded border border-gray-300 text-gray-800"
               type="result"
               name="result"
               value={measurement.result}
@@ -124,9 +132,7 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
                 })
               }
             />
-            <label className="m-2 mt-0 text-gray-500 text-sm">
-              Water Height
-            </label>
+            <label>Water Height</label>
           </div>
           <div className="flex flex-col w-full">
             <SelectComponent
@@ -142,9 +148,7 @@ const Form = ({ sensors }: { sensors: Sensor[] }) => {
                 label: measurement,
               }))}
             />
-            <label className="m-2 mt-0 text-gray-500 text-sm">
-              Measurement
-            </label>
+            <label>Measurement</label>
           </div>
         </div>
       </div>
