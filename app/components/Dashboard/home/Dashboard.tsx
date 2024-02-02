@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { redirect } from 'next/navigation'
 
 import SelectComponent from "@/app/components/SelectComponent";
 import { Station } from "@/types/general";
@@ -10,6 +12,7 @@ const getConstructedNameFromStation = (station: Station) => {
 };
 
 const Dashboard = ({ stations }: { stations: Station[] }) => {
+
   const [period, setPeriod] = useState({
     from: new Date().getTime() - 1000 * 60 * 60 * 6,
     to: new Date().getTime(),

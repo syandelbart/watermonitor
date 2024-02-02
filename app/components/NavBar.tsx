@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LogoutButton } from "@/app/components/login/logout-btn";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { redirect } from 'next/navigation'
 
 const routes = [
   {
@@ -29,11 +30,18 @@ const routes = [
 ];
 
 const Navbar = () => {
-  const { user } = useUser();
+  const { user, error, isLoading } = useUser();
   const router = useRouter();
   const pathname = usePathname();
-
   
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+  if(!user)
+  {
+    redirect('/api/auth/login');
+  }
+
+
   return (
     <div className="w-full h-20 bg-emerald-800 sticky top-0 z-50">
       <div className="container mx-auto px-4 h-full">
