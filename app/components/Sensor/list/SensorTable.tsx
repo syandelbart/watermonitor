@@ -49,6 +49,53 @@ const SensorTable = () => {
               >
                 <Icon icon="mdi:pencil" />
               </Link>
+
+              <button
+                onClick={async () => {
+                  console.log("clicked");
+                  if ("serviceWorker" in navigator) {
+                    const register = await navigator.serviceWorker.register(
+                      "/sw.js"
+                    );
+
+                    const subscription = await register.pushManager.subscribe({
+                      userVisibleOnly: true,
+                      applicationServerKey:
+                        process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+                    });
+
+                    const res = await fetch("/api/push/subscribe", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        stationName: `${sensor.municipality}/${sensor.station_name}`,
+                        subscription: subscription,
+                      }),
+                      headers: {
+                        "content-type": "application/json",
+                      },
+                    });
+
+                    const data = await res.json();
+                    console.log(data);
+                  }
+                }}
+              >
+                <Icon icon="mdi:bell" />
+              </button>
+
+              <button
+                onClick={async () => {
+                  await fetch(`/api/push/send-notification`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                      stationName: `${sensor.municipality}/${sensor.station_name}`,
+                    }),
+                  });
+                }}
+              >
+                <Icon icon="mdi:eye" />
+              </button>
+
               <Icon
                 className="cursor-pointer"
                 icon="mdi:delete"

@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import SelectComponent from "@/app/components/SelectComponent";
 import { Municipality, Sensor } from "@/types/general";
 import { useSensorStore } from "@/zustand";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { LoadScript } from "@react-google-maps/api";
 
 import MyMap from "../Map";
@@ -20,6 +20,8 @@ type Methods = {
 const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   const urlSearchParams = useSearchParams();
   const { sensors, add, modify } = useSensorStore();
+
+  const [image, setImage] = useState<File>();
 
   const action = urlSearchParams.get("action");
 
@@ -38,6 +40,12 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         .then((response) => response.json())
         .then((data: Sensor) => {
           setSensor(data);
+          console.log(data.image);
+          // Buffer to image file
+          if (image) {
+            const file = new File([image], "image.png", { type: "image/png" });
+            setImage(file);
+          }
         });
     }
   }, [urlSearchParams]);
@@ -53,6 +61,8 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   });
 
   async function handleSubmit() {
+    // const result = JSON.stringify(sensor);
+    // console.log(result);
     const response = await fetch(`/api/sensor`, {
       method: action === "edit" ? "PUT" : "POST",
       body: JSON.stringify(sensor),
@@ -61,7 +71,9 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         "Content-Type": "application/json",
       },
     });
-    // If response was a success, clear the form
+
+    if (!response.ok) return console.log(response);
+
     if (response.ok) {
       const newSensor: Sensor = await response.json();
       if (action == "edit") {
@@ -98,9 +110,64 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
   async function handleChangeImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event?.target?.files?.[0]; // Use optional chaining to handle potential null or undefined
     if (file) {
-      setSensor({ ...sensor, image: await file.text() });
+      setImage(file);
+
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        // resolve(fileReader.result);
+        // console.log(fileReader.result);
+
+        const base64 = fileReader.result;
+        // if (!base64) return;
+        // if(typeof base64 === "object"){
+        //   base64.
+        // }
+        setSensor({ ...sensor, image: base64 as string });
+      };
+
+      fileReader.onerror = (error) => {
+        // reject(error);
+        console.log(error);
+      };
+
+      // const reader = new FileReader();
+
+      // reader.onload = (e) => {
+      //   // e.target.result contains the base64-encoded string
+      //   const base64String = e.target?.result as string;
+      //   console.log(base64String);
+
+      //   // You can set the base64String state or use it as needed
+      // };
+
+      // reader.readAsDataURL(file);
+
+      // const base64 = toBase64(file as File);
+
+      // console.log(base64);
     }
   }
+
+  // Convert a file to base64 string
+  // const toBase64 = (file: File) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+
+  //     fileReader.readAsDataURL(file);
+
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //       console.log(fileReader.result);
+  //     };
+
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
 
   return (
     <div className="flex m-3 flex-col justify-center items-center">
@@ -155,7 +222,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
                 htmlFor="img"
                 className="p-1 cursor-pointer justify-center "
               >
-                <Icon icon="gridicons:add-image" width="30" height="30" />
+                {/* <Icon icon="gridicons:add-image" width="30" height="30" /> */}
               </label>
             </div>
           </div>
@@ -236,7 +303,21 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
             <label>Latitude</label>
           </div>
         </div>
-        <hr className="text-xl h-2 text-gray-500" />
+        <hr className="text-xl h-2 text-gray-500 m-1" />
+        {/* image of setup with react use state and preview */}
+        <div className="flex flex-col">
+          {sensor.image && (
+            <Image
+              src={sensor.image}
+              alt="Image of the sensor setup (preview)"
+              width={200}
+              height={200}
+            />
+          )}
+          <label className="m-2 mt-0 text-gray-500 text-sm">Image</label>
+
+          <input type="file" accept="image/*" onChange={handleChangeImage} />
+        </div>
       </div>
       <button
         className="m-3 mt-5 bg-black text-white p-2 rounded"
