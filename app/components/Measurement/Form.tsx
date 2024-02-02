@@ -58,7 +58,7 @@ const Form = () => {
                 // map sensor find to value and label
                 sensor
                   ? {
-                      value: sensor.id.toString(),
+                      value: sensor.id?.toString() ?? "",
                       label: `${sensor.municipality}/${sensor.station_name}`,
                     }
                   : {
@@ -78,7 +78,7 @@ const Form = () => {
                   label: "Select sensor",
                 },
                 ...sensors.map((sensor) => ({
-                  value: sensor.id.toString(),
+                  value: sensor.id?.toString() ?? "",
                   label: `${sensor.municipality}/${sensor.station_name}`,
                 })),
               ]}

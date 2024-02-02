@@ -31,7 +31,7 @@ const SensorTable = () => {
       </TableHeader>
       <TableBody>
         {sensors.map((sensor, i) => (
-          <TableRow key={sensor.id}>
+          <TableRow key={sensor.id ?? sensor.station_name}>
             <TableCell>{i + 1}</TableCell>
             <TableCell>{sensor.id}</TableCell>
             <TableCell>{sensor.municipality}</TableCell>
