@@ -42,13 +42,18 @@ const POST = async (req: Request) => {
     body: `This is a test notification for ${data.stationName}`,
     icon: "https://some-image-url.jpg",
     data: {
-      url: encodeURI("https://example.com"),
+      url: encodeURI(
+        `${process.env.NEXT_PUBLIC_APP_URL}/station/${data.stationName
+          // replace all / by 2F
+          .replace(/\//g, "%2F")}`
+      ),
     },
   };
 
   // Get all subscriptions from database
   const dbEntries = (await fetch(
-    `${process.env.NEXT_PUBLIC_NODE_RED_API}/push`,
+    `${process.env.NEXT_PUBLIC_NODE_RED_API}/push?station_name=${data.stationName}`,
+
     { headers: NodeRedAuthHeaders }
   ).then((res) => res.json())) as NotificationGet[];
 
