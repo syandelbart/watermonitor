@@ -75,7 +75,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
 
     if (!response.ok) return console.log(response);
 
-    const createdSensor: Sensor = await response.json();
+    // const createdSensor: Sensor = await response.json();
 
     // Upload image
     // if (createdSensor?.id && image) {
@@ -243,7 +243,7 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
                 htmlFor="img"
                 className="p-1 cursor-pointer justify-center "
               >
-                <Icon icon="gridicons:add-image" width="30" height="30" />
+                {/* <Icon icon="gridicons:add-image" width="30" height="30" /> */}
               </label>
             </div>
           </div>
@@ -327,9 +327,9 @@ const Form = ({ municipalities }: { municipalities: Municipality[] }) => {
         <hr className="text-xl h-2 text-gray-500 m-1" />
         {/* image of setup with react use state and preview */}
         <div className="flex flex-col">
-          {image && (
+          {sensor.image && (
             <Image
-              src={URL.createObjectURL(image)}
+              src={sensor.image}
               alt="Image of the sensor setup (preview)"
               width={200}
               height={200}

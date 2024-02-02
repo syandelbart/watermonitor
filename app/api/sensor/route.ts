@@ -81,6 +81,7 @@ const PUT = async (request: Request) => {
       mac_address: sensor.mac_address,
       longitude: sensor.longitude ?? 0,
       latitude: sensor.latitude ?? 0,
+      image: sensor.image
     }),
   });
 
