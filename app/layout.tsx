@@ -4,8 +4,6 @@ import Navigation from "./components/NavBar";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Inter } from "next/font/google";
 
-import Navigation from "./components/NavBar";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({

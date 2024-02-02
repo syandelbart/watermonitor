@@ -30,9 +30,9 @@ const routes = [
 ];
 
 const Navbar = () => {
-  const { user, error, isLoading } = useUser();
   const router = useRouter();
   const pathname = usePathname();
+  const { user, error, isLoading } = useUser();
   
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;

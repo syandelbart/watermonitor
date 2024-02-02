@@ -1,9 +1,10 @@
 import { NodeRedAuthHeaders, Sensor } from "@/types/general";
 
+
 const GET = async (request: Request) => {
   const headers = new Headers(NodeRedAuthHeaders);
   headers.set("Content-Type", "application/json");
-
+  
   const response = await fetch(`${process.env.NODE_RED_API}/sensors`, {
     method: "GET",
     headers: headers,
