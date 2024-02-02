@@ -43,6 +43,7 @@ const POST = async (request: Request) => {
       mac_address: sensor.mac_address,
       longitude: sensor.longitude,
       latitude: sensor.latitude,
+      image: sensor.image
     }),
   });
 
@@ -81,6 +82,7 @@ const PUT = async (request: Request) => {
       mac_address: sensor.mac_address,
       longitude: sensor.longitude ?? 0,
       latitude: sensor.latitude ?? 0,
+      image: sensor.image
     }),
   });
 

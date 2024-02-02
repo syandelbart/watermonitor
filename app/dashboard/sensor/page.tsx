@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { Municipality, NodeRedAuthHeaders } from "@/types/general";
 
 import Form from "../../components/Sensor/Form";
@@ -15,7 +17,9 @@ const Page = async () => {
 
   return (
     <main className="flex m-3 flex-col">
-      <Form municipalities={municipalities} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Form municipalities={municipalities} />
+      </Suspense>
     </main>
   );
 };

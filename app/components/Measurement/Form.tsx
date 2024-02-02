@@ -67,7 +67,9 @@ const Form = () => {
                     }
               }
               onChange={(e: { value: string; label: string }) => {
-                setSensor(sensors.find((sensor) => sensor.id.toString() === e.value));
+                setSensor(
+                  sensors.find((sensor) => sensor.id === Number(e.value))
+                );
                 setMeasurement({ ...measurement, sensor_id: e.value });
               }}
               options={[
